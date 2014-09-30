@@ -1,0 +1,29 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Puolueyhdistyksiltä saatu tuki"},
+{"name":"Muilta saatu tuki"},
+{"name":"Liisa Jaakonsaari"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Televisio"},
+{"name":"Tietoverkot"},
+{"name":"Ulkomainonta"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Mainonnan suunnittelu"},
+{"name":"Vaalitilaisuudet"}
+],
+"links":[
+{"source":0,"target":5,"value":31630.00},
+{"source":1,"target":5,"value":4409.00},
+{"source":2,"target":5,"value":4000.00},
+{"source":3,"target":5,"value":17050.00},
+{"source":4,"target":5,"value":9800.00},
+{"source":5,"target":6,"value":34348.00},
+{"source":5,"target":7,"value":9027.00},
+{"source":5,"target":8,"value":1742.00},
+{"source":5,"target":9,"value":14145.00},
+{"source":5,"target":10,"value":1399.00},
+{"source":5,"target":11,"value":4774.00},
+{"source":5,"target":12,"value":1454.00}
+]}

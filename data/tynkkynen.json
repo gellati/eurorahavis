@@ -1,0 +1,29 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Puolueyhdistyksiltä saatu tuki"},
+{"name":"Oras Tynkkynen"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Tietoverkot"},
+{"name":"Ulkomainonta"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Mainonnan suunnittelu"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Vastikkeellisen tuen hankintakulut"},
+{"name":"Muut kulut"}
+],
+"links":[
+{"source":0,"target":4,"value":20030.46},
+{"source":1,"target":4,"value":20668.40},
+{"source":2,"target":4,"value":3500.00},
+{"source":3,"target":4,"value":2207.18},
+{"source":4,"target":5,"value":15967.09},
+{"source":4,"target":6,"value":4494.13},
+{"source":4,"target":7,"value":11539.73},
+{"source":4,"target":8,"value":3673.48},
+{"source":4,"target":9,"value":2844.56},
+{"source":4,"target":10,"value":1139.59},
+{"source":4,"target":11,"value":947.10},
+{"source":4,"target":12,"value":5800.36}
+]}

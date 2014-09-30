@@ -1,0 +1,36 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Yrityksiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Puolueyhdistyksiltä saatu tuki"},
+{"name":"Muilta saatu tuki"},
+{"name":"Miapetra Kumpula-Natri"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Televisio"},
+{"name":"Tietoverkot"},
+{"name":"Ulkomainonta"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Mainonnan suunnittelu"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Vastikkeellisen tuen hankintakulut"},
+{"name":"Muut kulut"}
+
+],
+"links":[
+{"source":0,"target":6,"value":11724.88},
+{"source":1,"target":6,"value":5037.00},
+{"source":2,"target":6,"value":10550.00},
+{"source":3,"target":6,"value":4000.00},
+{"source":4,"target":6,"value":2500.00},
+{"source":5,"target":6,"value":53556.03},
+{"source":6,"target":7,"value":19899.52},
+{"source":6,"target":8,"value":12712.48},
+{"source":6,"target":9,"value":1624.00},
+{"source":6,"target":10,"value":31872.00},
+{"source":6,"target":11,"value":11590.98},
+{"source":6,"target":12,"value":4612.77},
+{"source":6,"target":13,"value":374.55},
+{"source":6,"target":14,"value":1322.50},
+{"source":6,"target":15,"value":3359.11}
+]}

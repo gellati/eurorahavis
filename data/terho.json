@@ -1,0 +1,23 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Sampo Terho"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Tietoverkot"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Mainonnan suunnittelu"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Muut kulut"}
+],
+"links":[
+{"source":0,"target":3,"value":18767.54},
+{"source":1,"target":3,"value":1330.00},
+{"source":2,"target":3,"value":10000},
+{"source":3,"target":4,"value":2473.02},
+{"source":3,"target":5,"value":5239.90},
+{"source":3,"target":6,"value":7283.27},
+{"source":3,"target":7,"value":11974.40},
+{"source":3,"target":8,"value":276.50},
+{"source":3,"target":9,"value":2850.45}
+]}

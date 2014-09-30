@@ -1,0 +1,30 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Yrityksiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Puolueyhdistyksiltä saatu tuki"},
+{"name":"Muilta saatu tuki"},
+{"name":"Olli Rehn"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Tietoverkot"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Mainonnan suunnittelu"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Vastikkeellisen tuen hankintakulut"},
+{"name":"Muut kulut"}
+],
+"links":[
+{"source":0,"target":6,"value":35001.00},
+{"source":1,"target":6,"value":29861.00},
+{"source":2,"target":6,"value":48250.00},
+{"source":3,"target":6,"value":5000.00},
+{"source":4,"target":6,"value":27350.00},
+{"source":6,"target":7,"value":620230.00},
+{"source":6,"target":8,"value":2504.00},
+{"source":6,"target":9,"value":17079.00},
+{"source":6,"target":10,"value":13707.00},
+{"source":6,"target":11,"value":12388.00},
+{"source":6,"target":12,"value":16500.00},
+{"source":6,"target":13,"value":21271.00}
+]}

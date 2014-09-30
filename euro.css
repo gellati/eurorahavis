@@ -1,0 +1,54 @@
+        /*body{padding:10px;overflow:hidden;background:#dcdcdc} */
+        .dataregion {
+            width: 1800px;
+            height: 800px;
+        }
+        #paper {
+            width: 800px;
+            height: 800px;
+            margin: 20px;
+            border: 1px solid;
+            background: #fff;
+            float: left;
+        }
+
+        .details {
+            width: 300px;
+            height: 500px;
+        }
+
+#help_parent{position: absolute; right: 500px;top:2px;}
+#helpHolder{position: absolute; right: 500px;top:2px;}
+
+       #personalsponsors{color: #333;text-decoration: blink;width: 100px; height:50px}
+       #corporatesponsors{color: #333;text-decoration: blink;}
+       #partysponsors{color: #333;text-decoration: blink;}
+       #partyorgsponsors{color: #333;text-decoration: blink;}
+
+
+        footer{
+        float: left;
+        }
+        #chart {
+            height: 800px;
+            width: 800px;
+            float: left;
+            margin: 50px;
+        }
+        #chart .node rect {
+            cursor: move;
+            fill-opacity: .9;
+            shape-rendering: crispEdges;
+        }
+        .node text {
+            pointer-events: none;
+            text-shadow: 0 1px 0 #fff;
+        }
+        .link {
+            fill: none;
+            stroke: #000;
+            stroke-opacity: .2;
+        }
+        .link:hover {
+            stroke-opacity: .5;
+        }

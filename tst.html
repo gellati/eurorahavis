@@ -1,0 +1,192 @@
+<html>
+    <head>
+<meta charset="UTF-8">
+
+<style>
+body{padding:10px;overflow:hidden;background:#dcdcdc}
+#paper {width:600px;height:400px;border:1px solid;background:#fff}
+</style>
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<!--        <script type="text/javascript" src="https://raw.github.com/DmitryBaranovskiy/raphael/300aa589f5a0ba7fce667cd62c7cdda0bd5ad904/raphael-min.js"></script>-->
+        <script type="text/javascript" src="raph2.js"></script>
+        <script type="text/javascript" src="taffy.js"></script>
+        <script type="text/javascript" src="data.js"></script>
+
+    </head>
+    <body>
+        Use mousewheel to zoom
+    <div id="paper"></div>
+
+
+
+<script type="text/javascript" >
+
+    var paper = Raphael('paper');
+
+    paper.setViewBox(0,0,paper.width,paper.height);
+
+var bWidth = 50; //box width
+var bHeight = 50; // box height
+
+// position of the box
+var xpos = (paper.width / 2) - bWidth / 2;
+var ypos = (paper.height / 2) - bHeight / 2;
+
+var c = paper.rect(xpos,ypos,bWidth,bHeight).attr({'fill':'#ee20e0'});
+    c.xpos = xpos;
+    c.ypos = ypos;
+    c.dX = +0;
+    c.dY = +0;
+
+
+// zooming functionality, http://stackoverflow.com/questions/7736690/raphael-paper-zoom-animation
+
+var viewBoxWidth = paper.width;  // set the viewbox height variable
+var viewBoxHeight = paper.height; // set thew viewbox width variable
+var canvasID = "#paper";
+var startX,startY;
+var mousedown = false;
+var dX,dY;
+var oX = 0, oY = 0, oWidth = viewBoxWidth, oHeight = viewBoxHeight;
+var viewBox = paper.setViewBox(oX, oY, viewBoxWidth, viewBoxHeight); // size of viewbox is same as of initial object
+
+// create new X and Y variables in viewbox
+viewBox.X = oX;
+viewBox.Y = oY;
+var vB = paper.rect(viewBox.X,viewBox.Y,viewBoxWidth,viewBoxHeight)
+    .attr({stroke: "#009", "stroke-width": 3}); // the area bounded by the blue box
+
+// mouse wheel functionality starts
+// http://www.adomas.org/javascript-mouse-wheel/
+
+    /** This is high-level function.
+     * It must react to delta being more/less than zero.
+     */
+    function handle(delta) {
+       // original viewbox height and width stored
+        vBHo = viewBoxHeight;
+        vBWo = viewBoxWidth;
+        // new dimensions for viewbox calculated on basis of mouse scroll
+        if (delta < 0) {
+        viewBoxWidth *= 0.95;
+        viewBoxHeight*= 0.95;
+        }
+        else {
+        viewBoxWidth *= 1.05;
+        viewBoxHeight *= 1.05;
+        }
+        
+  // resizing of the viewbox in response to the mouse wheel scroll
+  viewBox.X -= (viewBoxWidth - vBWo) / 2;
+  viewBox.Y -= (viewBoxHeight - vBHo) / 2;          
+  paper.setViewBox(viewBox.X,viewBox.Y,viewBoxWidth,viewBoxHeight);
+
+    }
+
+    /** Event handler for mouse wheel event.
+     */
+    function wheel(event){
+            var delta = 0;
+            if (!event) /* For IE. */
+                    event = window.event;
+            if (event.wheelDelta) { /* IE/Opera. */
+                    delta = event.wheelDelta/120;
+            } else if (event.detail) { /** Mozilla case. */
+                    /** In Mozilla, sign of delta is different than in IE.
+                     * Also, delta is multiple of 3.
+                     */
+                    delta = -event.detail/3;
+            }
+            /** If delta is nonzero, handle it.
+             * Basically, delta is now positive if wheel was scrolled up,
+             * and negative, if wheel was scrolled down.
+             */
+            if (delta)
+                    handle(delta);
+            /** Prevent default actions caused by mouse wheel.
+             * That might be ugly, but we handle scrolls somehow
+             * anyway, so don't bother here..
+             */
+            if (event.preventDefault)
+                    event.preventDefault();
+        event.returnValue = false;
+    }
+
+    /** Initialization code. 
+     * If you use your own event management code, change it as required.
+     */
+    if (window.addEventListener)
+            /** DOMMouseScroll is for mozilla. */
+            window.addEventListener('DOMMouseScroll', wheel, false);
+    /** IE/Opera. */
+    window.onmousewheel = document.onmousewheel = wheel;
+
+// mouse wheel functionality ends
+
+
+
+//Pane
+        $(canvasID).mousedown(function(e){
+//            dX = 0;
+//            dY = 0;
+
+            if (paper.getElementByPoint( e.pageX, e.pageY ) != null) {return;}
+            mousedown = true;
+            startX = e.pageX; // x coordinates of the mouse cursor
+            startY = e.pageY; // y coordinates of the mouse cursor
+        });
+
+        $(canvasID).mousemove(function(e){
+            if (mousedown == false) {return;}
+            dX = startX - e.pageX; // difference in mouse movement in x direction
+            dY = startY - e.pageY; // how much mouse cursor moved in y direction
+
+            // calculating the ratio of the new viewbox size and the original paper size
+            x = viewBoxWidth / paper.width; // viewbox width calculated as ratio of document object width
+            y = viewBoxHeight / paper.height; // viewbox height calculated as ratio of document object height
+
+           // the mouse movement times the ratio
+           dX *= x;
+           dY *= y;
+
+            // setting the new dimensions for the viewbox, i.e. zooming in on the selected area
+            paper.setViewBox(viewBox.X + dX, viewBox.Y + dY, viewBoxWidth, viewBoxHeight);
+c.dX = dX;
+c.dY = dY;
+
+        })
+            // lets go of the paper when the mouse cursor is released
+        $(canvasID).mouseup(function(e){
+            if ( mousedown == false ) return;
+            viewBox.X += dX;
+            viewBox.Y += dY;
+            mousedown = false;
+            
+        });
+
+
+
+var dragger = function () {
+
+        this.xpos = this.type == "rect" ? this.attr("x") : this.attr("cx");
+        this.ypos = this.type == "rect" ? this.attr("y") : this.attr("cy");
+
+    }
+        move = function (dx, dy) {
+            var att = this.type == "rect" ? {x: this.xpos + dx + this.dX, y: this.ypos + dy + this.dY} : {cx: this.xpos + dx + this.dX, cy: this.ypos + dy + this.dY};
+
+            this.attr(att);
+            paper.safari(); // fixes rendering bug in safari browser
+        }
+        up = function () {
+            this.animate({"fill-opacity": 0}, 500);
+        }
+    
+    c.attr({"fill": "#aa0", "stroke": "#aa0", "stroke-width": 2, cursor: "move"});
+    c.drag(move,dragger,up);
+
+</script>
+
+    </body>
+</html>

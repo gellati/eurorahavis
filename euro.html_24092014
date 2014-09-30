@@ -1,0 +1,813 @@
+<html>
+    <head>
+<meta charset="UTF-8">
+<title>Vaalirahoitus</title>
+<style>
+/*body{padding:10px;overflow:hidden;background:#dcdcdc} */
+#paper {width:800px;height:600px;border:1px solid;background:#fff}
+#chart{
+/*  height: 1000px;*/
+  height: 1000px;
+  width:300px;
+}
+
+#chart .node rect {
+  cursor: move;
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+.node text {
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.link {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .2;
+}
+
+.link:hover {
+  stroke-opacity: .5;
+}
+
+</style>
+
+
+</style>
+    <body>
+    <div id="paper"></div>
+    <div id="chart"></div>
+
+
+<!--        <script type="text/javascript" src="https://raw.github.com/DmitryBaranovskiy/raphael/300aa589f5a0ba7fce667cd62c7cdda0bd5ad904/raphael-min.js"></script>-->
+
+        <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+        <script type="text/javascript" src="jquery.qtip-1.0.0-rc3.js"></script>
+
+        <script type="text/javascript" src="raph2.js"></script>
+<!--        <script type="text/javascript" src="jquery.balloon.js"></script> -->
+        <script type="text/javascript" src="taffy.js"></script>
+        <script type="text/javascript" src="data.js"></script>
+<!--<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['sankey']}]}"></script> -->
+
+        <script type="text/javascript" src="d3-master/d3.js"></script>
+<script type="text/javascript" src="sankey.js"></script>
+<script type="text/javascript">
+
+var files = [
+"m", 
+"data/pietikainen.json",
+"data/sarvamaa.json",
+"data/stubb.json",
+"data/virkkunen.json",
+"data/halla-aho.json",
+"data/ruohonen-lerner.json",
+"data/terho.json",
+"data/jaatteenmaki.json",
+"data/rehn.json",
+"data/takkula.json",
+"data/vayrynen.json",
+"data/gestrin.json",
+"data/torvalds.json",
+"data/harakka.json",
+"data/jaakonsaari.json",
+"data/kumpula-natri.json",
+"data/andersson.json",
+"data/kyllonen.json",
+"data/hautala.json",
+"data/tynkkynen.json"
+];
+
+//var selectedMEPdata = "data/jaatteenmaki.json";
+var selectedMEPid = 20;
+
+var selectedMEPdata = files[selectedMEPid];
+//dsankeyselect(1);
+
+</script>
+
+<script type="text/javascript" src="dsankey.js"></script>
+
+
+
+
+<script type="text/javascript">
+/*
+
+moving object in raphael after zoom on pan
+
+I have made a Raphael image where an object is placed on a background. The object can be moved around with the right mouse button pressed down, and the object follows the path of the mouse cursor. However, the movement of the object becomes distorted after zooming in or out, or panning the area. I have tried putting the differences in zooming in a variable and inside the object, but somehow the values are not transmitted to the function where the resizing of the viewbox takes place. Can you please help me?
+
+The application code is here: jsfiddle
+*/
+
+
+// functionality to connect two objects
+
+Raphael.fn.connection = function (obj1, obj2, str, line, bg) {
+    if (obj1.line && obj1.from && obj1.to) {
+        line = obj1;
+        obj1 = line.from;
+        obj2 = line.to;
+//        obj1.string = str;
+
+    }
+    var bb1 = obj1.getBBox(),
+        bb2 = obj2.getBBox(),
+        p = [
+        {x: bb1.x + bb1.width / 2, y: bb1.y - 1},
+        {x: bb1.x + bb1.width / 2, y: bb1.y + bb1.height + 1},
+        {x: bb1.x - 1, y: bb1.y + bb1.height / 2},
+        {x: bb1.x + bb1.width + 1, y: bb1.y + bb1.height / 2},
+        {x: bb2.x + bb2.width / 2, y: bb2.y - 1},
+        {x: bb2.x + bb2.width / 2, y: bb2.y + bb2.height + 1},
+        {x: bb2.x - 1, y: bb2.y + bb2.height / 2},
+        {x: bb2.x + bb2.width + 1, y: bb2.y + bb2.height / 2}],
+
+        d = {}, dis = [];
+    for (var i = 0; i < 4; i++) {
+        for (var j = 4; j < 8; j++) {
+            var dx = Math.abs(p[i].x - p[j].x),
+                dy = Math.abs(p[i].y - p[j].y);
+            if ((i == j - 4) || (((i != 3 && j != 6) || p[i].x < p[j].x) && ((i != 2 && j != 7) || p[i].x > p[j].x) && ((i != 0 && j != 5) || p[i].y > p[j].y) && ((i != 1 && j != 4) || p[i].y < p[j].y))) {
+                dis.push(dx + dy);
+                d[dis[dis.length - 1]] = [i, j];
+            }
+        }
+    }
+    if (dis.length == 0) {
+        var res = [0, 4];
+    } else {
+        res = d[Math.min.apply(Math, dis)];
+    }
+    var x1 = p[res[0]].x,
+        y1 = p[res[0]].y,
+        x4 = p[res[1]].x,
+        y4 = p[res[1]].y;
+    dx = Math.max(Math.abs(x1 - x4) / 2, 10);
+    dy = Math.max(Math.abs(y1 - y4) / 2, 10);
+    var x2 = [x1, x1, x1 - dx, x1 + dx][res[0]].toFixed(3),
+        y2 = [y1 - dy, y1 + dy, y1, y1][res[0]].toFixed(3),
+        x3 = [0, 0, 0, 0, x4, x4, x4 - dx, x4 + dx][res[1]].toFixed(3),
+        y3 = [0, 0, 0, 0, y1 + dy, y1 - dy, y4, y4][res[1]].toFixed(3);
+    var path = ["M", x1.toFixed(3), y1.toFixed(3), "C", x2, y2, x3, y3, x4.toFixed(3), y4.toFixed(3)].join(",");
+    if (line && line.line) {
+        line.bg && line.bg.attr({path: path});
+        line.line.attr({path: path});
+    } else {
+        var color = typeof line == "string" ? line : "#000";
+/*
+    $(line.node).qtip({
+      content: str,
+      hide:{delay:50
+           },
+      position: {
+                  target:"fixed",
+                  adjust: {x: 5, y: 5}
+                }
+    });
+*/
+/*
+  MEP[j].balloontext = paper.text(
+                   paper.width/2 + namerad * radius * Math.cos(MEP[j].phi) + balloonwidth/2,
+                   paper.height/2 + namerad * radius * Math.sin(MEP[j].phi) + balloonheight/2,
+                   MEP[j].name + "\n" + MEP[j].rahoitusyhteensa).attr("fill", "#000");
+
+*/
+
+
+
+
+
+
+
+//  $(MEP[j].node).qtip({
+
+/*
+    $(line.node).qtip({
+      content: str,
+      hide:{delay:50
+           },
+      position: {
+                  target:"mouse",
+                  adjust: {x: 5, y: 5}
+                }
+    });
+*/
+
+
+
+
+
+        return {
+            bg: bg && bg.split && this.path(path).attr({stroke: bg.split("|")[0], fill: "none", "stroke-width": bg.split("|")[1] || 3}),
+            line: this.path(path).attr({stroke: color, fill: "none"}),
+            from: obj1,
+            to: obj2,
+            string: str
+        };
+    }
+
+
+};
+
+
+// rounding function, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
+(function(){
+
+	/**
+	 * Decimal adjustment of a number.
+	 *
+	 * @param	{String}	type	The type of adjustment.
+	 * @param	{Number}	value	The number.
+	 * @param	{Integer}	exp		The exponent (the 10 logarithm of the adjustment base).
+	 * @returns	{Number}			The adjusted value.
+	 */
+	function decimalAdjust(type, value, exp) {
+		// If the exp is undefined or zero...
+		if (typeof exp === 'undefined' || +exp === 0) {
+			return Math[type](value);
+		}
+		value = +value;
+		exp = +exp;
+		// If the value is not a number or the exp is not an integer...
+		if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+			return NaN;
+		}
+		// Shift
+		value = value.toString().split('e');
+		value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+		// Shift back
+		value = value.toString().split('e');
+		return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+	}
+
+	// Decimal round
+	if (!Math.round10) {
+		Math.round10 = function(value, exp) {
+			return decimalAdjust('round', value, exp);
+		};
+	}
+	// Decimal floor
+	if (!Math.floor10) {
+		Math.floor10 = function(value, exp) {
+			return decimalAdjust('floor', value, exp);
+		};
+	}
+	// Decimal ceil
+	if (!Math.ceil10) {
+		Math.ceil10 = function(value, exp) {
+			return decimalAdjust('ceil', value, exp);
+		};
+	}
+
+})();
+
+</script>
+
+
+
+
+    </head>
+
+<script type="text/javascript" >
+
+  function countMoney(mep, n){
+   mep.omatvarat = omatvarat({member:n}).first().sum;
+   mep.lainarahat = lainarahat({member:n}).first().sum;
+   mep.henkilotuki = henkilotuki({member:n}).first().sum;
+   mep.yritystuki = yritystuki({member:n}).first().sum;
+   mep.puoluetuki = puoluetuki({member:n}).first().sum;
+   mep.puolueyhdistystuki = puolueyhdistystuki({member:n}).first().sum;
+   mep.muutuki = muutuki({member:n}).first().sum;
+   mep.rahoitusyhteensa = Math.round10(mep.omatvarat + mep.lainarahat + mep.henkilotuki + mep.yritystuki + mep.puoluetuki + mep.puolueyhdistystuki + mep.muutuki, -2);
+                           
+   mep.omaraha = mep.omatvarat + mep.lainarahat;
+   mep.hyraha = mep.henkilotuki + mep.yritystuki;
+   mep.puolueraha = mep.puoluetuki + mep.puolueyhdistystuki;
+   mep.muuraha = mep.muutuki;
+   return;
+
+ };
+
+// return number of objects in object array, eg. number of parliamentarians
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
+
+// find maximum funding
+function maxrahoitus(meps){
+ var nmeps = Object.size(meps);
+ maxsum = 0;
+ for(var i = 1; i <= nmeps; i++){
+   if(meps[i].rahoitusyhteensa > maxsum){
+     maxsum = meps[i].rahoitusyhteensa;
+   }
+ } 
+return maxsum;
+
+};
+
+// find smallest funding
+function minrahoitus(meps){
+ var nmeps = Object.size(meps);
+ minsum = 100000000;
+ for(var i = 1; i <= nmeps; i++){
+   if(meps[i].rahoitusyhteensa < minsum){
+     minsum = meps[i].rahoitusyhteensa;
+   }
+ } 
+return minsum;
+
+};
+
+
+    var paper = Raphael('paper');
+
+    paper.setViewBox(0,0,paper.width,paper.height);
+
+//    var chart = Raphael('chart');
+//    chart.setViewBox(0,0,chart.width,chart.height);
+
+
+
+
+//var c = paper.rect(0,0,50,50).attr({'fill':'#ee20e0'});
+//    c.translate((paper.width / 2) - (c.attr('width') / 2), (paper.height / 2) - (c.attr('height') / 2));
+
+
+
+var reps = rahoitusyhteensa().distinct("id").length;
+var xpos = 0;
+var ypos = 0;
+var phi = 0;
+var increment = 2* Math.PI / reps;
+var radius = 200;
+var namerad = 1.3;
+
+
+var cMEP = "#f00";
+var cMEPselected = "#a00";
+// xpos = paper.width/2 + radius * Math.cos(phi);
+// ypos = paper.width/2 + radius * Math.sin(phi);
+
+
+//d3.json("jaatteenmaki.json");
+
+
+// var circ = paper.circle(xpos,ypos,10).attr({"fill": "#f00"});
+
+//circ.translate((paper.width / 2) - (circ.attr('width') / 2), (paper.height / 2) - (circ.attr('height') / 2));
+
+//var circle = {};
+var MEP = {};
+
+for(var j = 1; j <= reps; j++){
+ xpos = paper.width/2 + radius * Math.cos(phi);
+ ypos = paper.height/2 + radius * Math.sin(phi);
+ 
+// MEP[j] = paper.circle(xpos,ypos,10).attr({"fill": cMEP});
+
+// MEP[j].name = members({id:j}).first().name;
+
+
+ var MEPmaxheight = 50 * rahoitusyhteensa({member:j}).first().sum / rahoitusyhteensa().max("sum");
+ var MEPmaxwidth = 10;
+
+/*
+ var t = {}; // paper.rect(xpos,ypos,MEPmaxwidth,MEPmaxheight);;
+ countMoney(t, j);
+ var hMEPomaraha = t.omaraha / t.rahoitusyhteensa * MEPmaxheight;
+ var hMEPhyraha = t.hyraha / t.rahoitusyhteensa * MEPmaxheight;
+ var hMEPpuolueraha = t.puolueraha / t.rahoitusyhteensa * MEPmaxheight;
+ var hMEPmuuraha = t.muuraha / t.rahoitusyhteensa * MEPmaxheight;
+
+ var bMEPomaraha = paper.rect(xpos, ypos, MEPmaxwidth, hMEPomaraha);
+ var bMEPhyraha = paper.rect(xpos, ypos+hMEPomaraha, MEPmaxwidth, hMEPhyraha);
+ var bMEPpuolueraha = paper.rect(xpos, ypos+hMEPomaraha + hMEPhyraha, MEPmaxwidth, hMEPpuolueraha);
+ var bMEPmuuraha = paper.rect(xpos, ypos+hMEPomaraha + hMEPhyraha+hMEPpuolueraha, MEPmaxwidth, hMEPmuuraha);
+
+ MEP[j] = paper.set(bMEPomaraha, bMEPhyraha, bMEPpuolueraha, bMEPmuuraha);
+*/
+
+  MEP[j] = paper.rect(xpos,ypos,MEPmaxwidth,MEPmaxheight).attr({"border": cMEP, "fill": cMEP, "fill-opacity":0});
+  countMoney(MEP[j], j);
+
+
+// MEP[j] = paper.rect(xpos,ypos, 10, maxheight).attr({"fill": cMEP});
+
+
+
+ var omatvarat;
+ 
+//    circle.translate((paper.width / 2 - (circle.attr('width')) ), (paper.height / 2) - (circle.attr('height')));
+
+// dg 40
+
+ MEP[j].xpos = xpos;
+ MEP[j].ypos = ypos;
+ MEP[j].name = members({id:j}).first().name;
+ MEP[j].party = members({id:j}).first().party;
+ MEP[j].phi = phi;
+ MEP[j].color = cparties({party: MEP[j].party}).first().color;
+
+ MEP[j].attr({"border": MEP[j].color});
+
+// MEP[j].id = j;
+
+// make bigger hover areas
+// http://www.trottercashion.com/2011/04/07/creating-hovers-with-raphael.html
+
+// http://www.petercollingridge.co.uk/data-visualisation/mouseover-effects-svgs
+
+// http://stackoverflow.com/questions/3417479/how-to-do-a-tooltip-on-an-svg-generated-by-raphael
+// interactive pie chart: http://jsfiddle.net/vedmack/cuaBX/
+
+// http://mckay.cshl.edu/balloons.html
+// http://file.urin.take-uma.net/jquery.balloon.js-Demo.html
+
+// hide/ show object
+// http://stackoverflow.com/questions/13157070/how-can-i-show-hide-a-raphael-object-with-button-click-event
+
+ var l; // line drawn to balloon
+/*
+ var b = paper.text(paper.width/2 + namerad * radius * Math.cos(MEP[j].phi), 
+                 paper.height/2 + namerad * radius * Math.sin(MEP[j].phi), 
+                 MEP[j].name).attr("fill", cMEP);
+*/  
+              
+ phi += increment;
+
+  var balloonwidth = 100;
+  var balloonheight = 50;
+  var balloonmargin = 20;
+
+/*
+  if(j > reps/4 && j < (2/4) * reps){
+    namerad *= 1.05;
+  }
+*/
+  MEP[j].balloonline = paper.path(["M",
+                 paper.width/2 + radius * Math.cos(MEP[j].phi) + MEPmaxwidth/2, 
+                 paper.height/2 + radius * Math.sin(MEP[j].phi) + MEPmaxheight/2,
+                 "L",
+                 paper.width/2 + namerad * radius * Math.cos(MEP[j].phi)+balloonwidth/2, 
+                 paper.height/2 + namerad * radius * Math.sin(MEP[j].phi)+balloonheight/2]);
+
+  MEP[j].balloonarea = paper.rect(paper.width/2 + namerad * radius * Math.cos(MEP[j].phi), 
+                 paper.height/2 + namerad * radius * Math.sin(MEP[j].phi),
+                 balloonwidth, balloonheight).attr("fill", MEP[j].color);
+
+  MEP[j].balloontext = paper.text(
+                   paper.width/2 + namerad * radius * Math.cos(MEP[j].phi) + balloonwidth/2,
+                   paper.height/2 + namerad * radius * Math.sin(MEP[j].phi) + balloonheight/2,
+                   MEP[j].name + "\n" + MEP[j].rahoitusyhteensa).attr("fill", "#000");
+
+
+  MEP[j].balloon = paper.set();
+  MEP[j].balloon.push(MEP[j].balloonarea, MEP[j].balloontext, MEP[j].balloonline);
+  MEP[j].balloon.hide();
+
+  MEP[j].onclick = function(){
+
+
+    $.fancybox({
+      "width": "75%",
+      "height": "75%",
+      "type": "iframe" 
+      });
+
+//    MEP[j].balloon.attr("fill": "red");
+
+
+  };
+
+//  namerad = 0.25;
+  namerad = 0.25
+  if(j > (reps+1)/4  && j < (reps+2)/3 ){
+    namerad = 0.4;
+  }
+
+  if(j > (reps+2)/3  && j < (reps+4)/2 ){
+    namerad = 0.8;
+  }
+
+
+//google.setOnLoadCallback(drawchart);
+
+  $(MEP[j].node).qtip({
+           hide:{delay:500,
+                 fixed: true,
+                 event:false},
+           content:{title: MEP[j].name,
+                    text: function(){
+                        d3.csv("data.csv", function(error, data) {
+                         data.forEach(function(d) {
+                         d.population = +d.population;
+                         }
+                        );
+
+                        var g = svg.selectAll(".arc")
+                        .data(pie(data))
+                        .enter().append("g")
+                        .attr("class", "arc");
+
+                        g.append("path")
+                        .attr("d", arc)
+                        .style("fill", function(d) { return color(d.data.age); });
+ 
+                        g.append("text")
+                        .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+                        .attr("dy", ".35em")
+                        .style("text-anchor", "middle")
+                        .text(function(d) { return d.data.age; });
+
+                         })},
+
+
+
+/*                        function(){  
+google.load("visualization", "1", {packages: ["sankey"]});
+                          var data = new google.visualization.DataTable();
+                           data.addColumn('string', 'From');
+                           data.addColumn('string', 'To');
+                           data.addColumn('number', 'Weight');
+                           data.addRows([
+                          ['omia varoja yhteensa', 'Jäätteenmäki', 5013 ],
+                          ['puolueyhdistyksilta saatua tukea yhteensa', 'Jäätteenmäki', 32640.85 ],
+                          ['Jäätteenmäki', 'Sanoma- ilmaisjakelu- ja aikakauslehdet', 39623.98 ],
+                          ['Jäätteenmäki', 'Mainonnan suunnittelu', 1460.10],
+                          ['Jäätteenmäki', 'Vaalitilaisuudet', 3593.78 ]
+                          ]);
+                          var options = {
+                           width: 600
+                          };
+
+                          alert("helo");
+                          var container;
+                          var chart = new google.visualization.Sankey(container);
+                          chart.draw(data, options);
+                          return container; //'<div id="sankey-basic" style="width:900px;height:300px;"></div>';
+                          },
+
+*/
+
+
+//'<img class="h" src="/home/omar/Desktop/HobbyProjects/AppsLounais2014/vaalirahatest/Attac_logo.png" height=60px alt="loading..." />',
+
+                  button: 'close'},
+           style:{ background: "#000000", 
+                   color: "#ffffff", 
+                   border:{width:6, 
+                           radius:3,
+                            color: MEP[j].color
+                          }
+                  },
+           position:{corner:
+                          { target:"mouse",
+                            tooltip: "bottomLeft"},
+                     adjust:
+                          {x: namerad * radius * Math.cos(MEP[j].phi),
+                           y: namerad * radius * Math.sin(MEP[j].phi)}
+                  }
+          }
+     
+  );
+
+
+
+
+  MEP[j].mouseover(function(evt){
+
+   selectchart(files[this.id]);
+
+//    this.balloon.show();
+
+/*
+  t = paper.text(paper.width/2 + namerad * radius * Math.cos(this.phi), 
+                 paper.height/2 + namerad * radius * Math.sin(this.phi) + 10, 
+                 this.party).attr("fill", cMEPselected);
+                 
+  t = paper.text(paper.width/2 + namerad * radius * Math.cos(this.phi), 
+                 paper.height/2 + namerad * radius * Math.sin(this.phi) + 20, 
+                 this.rahoitusyhteensa).attr("fill", cMEPselected);
+*/
+
+
+
+//                 paper.width/2 + namerad * radius * Math.cos(this.phi) + 300, 
+//                 paper.height/2 + namerad * radius * Math.sin(this.phi) + 300
+
+// this.rahoitusyhteensa
+
+
+//alert(namerad.toString());
+
+//  this.attr("fill", "#a00");
+
+  }); // mouseover function
+
+
+/*
+MEP[j].hover(function (){
+ this.attr({"stroke": "#000"});
+},
+function(){
+this.attr({"stroke":"none"});
+});
+*/
+
+
+
+
+ MEP[j].mouseout(function(evt){
+//svg.fillRect(0,0,400,500);
+//sankey.fillRect(0,0,400,500);
+
+
+/*
+var c = .getElementById("chart");
+var ctx = c.getContext("2d");
+ctx.fillStyle = "#FF0000";
+ctx.fillRect(0,0,802,500);
+*/
+
+/*
+  var t = paper.text(paper.width/2 + namerad * radius * Math.cos(this.phi),
+                    paper.height/2 + namerad * radius * Math.sin(this.phi),
+                    this.name).attr("fill", "#FFFFFF");
+
+  t = paper.text(paper.width/2 + namerad * radius * Math.cos(this.phi),
+                paper.height/2 + namerad * radius * Math.sin(this.phi),
+                this.party).attr("fill", "#FFFFFF");
+
+*/
+
+//  this.balloon.hide();
+/*
+  var b = paper.rect(paper.width/2 + namerad * radius * Math.cos(this.phi)-20, 
+                 paper.height/2 + namerad * radius * Math.sin(this.phi)-20,
+                 50, 50).attr("fill", "none");
+*/
+
+/*
+  b = paper.rect(paper.width/2 + namerad * radius * Math.cos(this.phi)-20, 
+                 paper.height/2 + namerad * radius * Math.sin(this.phi)-20,
+                 50, 50).attr({"opacity": 1});
+*/
+
+
+//  this.attr({"fill": cMEP});
+ }); // mouseout function
+
+} // for j
+
+
+// zooming and pane functionality removed from here and placed in zoominfunc.bkup
+
+var viewBoxWidth = paper.width;
+var viewBoxHeight = paper.height;
+var canvasID = "#paper";
+var startX,startY;
+var mousedown = false;
+var dX,dY;
+var oX = 0, oY = 0, oWidth = viewBoxWidth, oHeight = viewBoxHeight;
+var viewBox = paper.setViewBox(oX, oY, viewBoxWidth, viewBoxHeight);
+viewBox.X = oX;
+viewBox.Y = oY;
+
+//Pane
+        $(canvasID).mousedown(function(e){
+//            dX = 0;
+//            dY = 0;
+
+//alert("hello");
+            if (paper.getElementByPoint( e.pageX, e.pageY ) != null) {return;}
+            mousedown = true;
+            startX = e.pageX;
+            startY = e.pageY;
+        });
+
+        $(canvasID).mousemove(function(e){
+            if (mousedown == false) {return;}
+            dX = startX - e.pageX;
+            dY = startY - e.pageY;
+
+
+            x = viewBoxWidth / paper.width; 
+            y = viewBoxHeight / paper.height; 
+
+           dX *= x;
+           dY *= y;
+
+           // alert(viewBoxWidth +" "+ paper.width );
+//console.log(dX);
+            
+            paper.setViewBox(viewBox.X + dX, viewBox.Y + dY, viewBoxWidth, viewBoxHeight);
+
+        })
+            
+        $(canvasID).mouseup(function(e){
+            if ( mousedown == false ) return;
+            viewBox.X += dX;
+            viewBox.Y += dY;
+            mousedown = false;
+            
+        });
+
+
+    connections = [];
+
+
+var dragger = function () {
+        this.xpos = this.type == "rect" ? this.attr("x") : this.attr("cx");
+        this.ypos = this.type == "rect" ? this.attr("y") : this.attr("cy");
+
+//        this.animate({"fill-opacity": .2}, 500);
+    }
+        move = function (dx, dy) {
+
+//            var att = this.type == "rect" ? {x: this.ox + dx, y: this.oy + dy} : {cx: this.ox + dx, cy: this.oy + dy};
+
+            var att = this.type == "rect" ? {x: this.xpos + dx, y: this.ypos + dy} : {cx: this.xpos + dx, cy: this.ypos + dy};
+
+
+            this.attr(att);
+            for (var i = connections.length; i--;) {
+                paper.connection(connections[i]);
+            }
+            paper.safari();
+        }
+        up = function () {
+  //          this.animate({"fill-opacity": 0}, 500);
+        }
+    
+    // perussuomalaisten puoluetuki
+    connections.push(paper.connection(MEP[5], MEP[6], "Perussuomalaiset rp", "#000"));
+    connections.push(paper.connection(MEP[5], MEP[7], "Perussuomalaiset rp", "#000"));
+    connections.push(paper.connection(MEP[6], MEP[7], "Perussuomalaiset rp", "#000"));
+
+    // Keskustan puoluetuki
+    connections.push(paper.connection(MEP[8], MEP[9], "Suomen Keskusta rp", "#000"));
+    connections.push(paper.connection(MEP[8], MEP[10], "Suomen Keskusta rp", "#000"));
+    connections.push(paper.connection(MEP[8], MEP[11], "Suomen Keskusta rp", "#000"));
+    connections.push(paper.connection(MEP[9], MEP[10], "Suomen Keskusta rp", "#000"));
+    connections.push(paper.connection(MEP[9], MEP[11], "Suomen Keskusta rp", "#000"));
+    connections.push(paper.connection(MEP[10], MEP[11], "Suomen Keskusta rp", "#000"));
+
+    // RKP:n puoluetuki
+    connections.push(paper.connection(MEP[12], MEP[13], "Svenska folkpartiet i Finland rp", "#000"));
+
+    // SDP:n puoluetuki
+    connections.push(paper.connection(MEP[14], MEP[15], "Suomen Sosialidemokraattinen Puolue rp", "#000"));
+    connections.push(paper.connection(MEP[14], MEP[16], "Suomen Sosialidemokraattinen Puolue rp", "#000"));
+    connections.push(paper.connection(MEP[15], MEP[16], "Suomen Sosialidemokraattinen Puolue rp", "#000"));
+
+    // vihreiden puoluetuki
+    connections.push(paper.connection(MEP[13], MEP[14], "Vihreä liitto rp", "#000"));
+
+    // muut tukijat
+    connections.push(paper.connection(MEP[1], MEP[14], "Ammattiliitto Pro ry", "#000")); // ammattiliitto pro
+    connections.push(paper.connection(MEP[15], MEP[16], "TEAM", "#000")); // TEAM
+
+
+
+//    connections.push(paper.connection(MEP[10], MEP[18], "#000"));
+//    connections.push(paper.connection(MEP[3], MEP[2], "#000", "#fff|5"));
+
+    for (var i = 1; i <= reps; i++) {
+        var color = Raphael.getColor();
+        MEP[i].attr({"border": MEP[i].color, "stroke": MEP[i].color, "stroke-width": 2, cursor: "move"});
+        MEP[i].drag(move, dragger, up);
+    }
+
+
+
+/*
+  $(MEP[j].node).qtip({
+           hide:{delay:500,
+                 fixed: true,
+                 event:false},
+           content:{title: MEP[j].name,
+                    text: function(){
+*/
+
+
+
+
+
+
+
+
+
+
+</script>
+
+    </body>
+</html>

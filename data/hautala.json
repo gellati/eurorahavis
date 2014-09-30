@@ -1,0 +1,21 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Heidi Hautala"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Tietoverkot"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Muut kulut"}
+],
+"links":[
+{"source":0,"target":3,"value":3703.42},
+{"source":1,"target":3,"value":2868.15},
+{"source":2,"target":3,"value":3500},
+{"source":3,"target":4,"value":5437.55},
+{"source":3,"target":5,"value":60.00},
+{"source":3,"target":6,"value":2940.90},
+{"source":3,"target":7,"value":463.37},
+{"source":3,"target":8,"value":1169.75}
+]}

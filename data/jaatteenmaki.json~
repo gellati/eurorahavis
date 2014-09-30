@@ -1,0 +1,25 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Puolueyhdistykseltä saatu tuki"},
+{"name":"Anneli Jäätteenmäki"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Radio"},
+{"name":"Ulkomainonta"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Mainonnan suunnittelu"},
+{"name":"Vaalitilaisuudet"}
+],
+"links":[
+{"source":0,"target":4,"value":5013},
+{"source":1,"target":4,"value":16475.17},
+{"source":2,"target":4,"value":5000},
+{"source":3,"target":4,"value":32640.85},
+{"source":4,"target":5,"value":39623.98},
+{"source":4,"target":6,"value":60},
+{"source":4,"target":7,"value":2600},
+{"source":4,"target":8,"value":11791.16},
+{"source":4,"target":9,"value":1460.10},
+{"source":4,"target":10,"value":3593.78}
+]}

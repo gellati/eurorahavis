@@ -1,0 +1,17 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Yrityksiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Puolueyhdistyksiltä saatu tuki"},
+{"name":"Muilta saatu tuki"},
+{"name":"Miapetra Kumpula-Natri"}
+],
+"links":[
+{"source":1,"target":7,"value":11724.88},
+{"source":2,"target":7,"value":5037.00},
+{"source":3,"target":7,"value":10550.00},
+{"source":4,"target":7,"value":4000.00},
+{"source":5,"target":7,"value":2500.00},
+{"source":6,"target":7,"value":53556.03}
+]}

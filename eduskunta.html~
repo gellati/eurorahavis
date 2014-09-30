@@ -1,0 +1,41 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Vaalirahoituksen verkko</title>
+        <script type="text/javascript" src="raph.js"></script>
+        <script type="text/javascript" src="vaaliraha4fin.js"></script>
+        <style type="text/css">
+            body {
+				background-color : #000000;
+				color:#888;
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 12px;
+            }
+			#centerlayout {
+				width: 900px;
+				margin-left: auto;
+				margin-right: auto
+            }
+			#varavi{
+				width: 900px;
+				float: left;
+				margin-bottom: 15px;
+            }
+			#col1{
+				width: 400px;
+				float: left;
+				margin-bottom: 50px;
+            }
+			#col2{
+				width: 400px;
+				float: left;
+				margin-left: 100px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div id="centerlayout"><h2>Vaalirahoituksen verkko</h2>
+        <div id="varavi"></div><div id="col1"><p>Visualisointi näyttää istuvan eduskunnan vaalirahoituksen määrän ja laadun. Edustajat, jotka ovat saaneet rahoitusta samalta taholta, on yhdistetty viivalla. Lisätietoja edustajista ja yhteysviivoista saa viemällä kursorin niiden kohdalle. Klikkaamalla tiettyä edustajaa avautuu yksityiskohtainen erittely edustajan rahoituslähteistä ja -määristä.</p></div><div id="col2"><p>Tietolähde: Valtiontalouden tarkastusvirasto, kansanedustajien vaalirahoitusilmoitukset</p><p>Visualisointi &copy; Parallax Oy / Jan Wolski</p></div></div>
+    </body>
+</html>
+

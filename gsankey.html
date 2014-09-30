@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>google Sankey demo</title>
+<!-- https://developers.google.com/chart/interactive/docs/gallery/sankey -->
+
+<script type="text/javascript"
+src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['sankey']}]}">
+</script>
+<div id="sankey-basic" style="width:900px;height:300px;"></div>
+
+<script type = "text/javascript">
+google.setOnLoadCallback(drawchart);
+
+function drawchart(){
+ var data = new google.visualization.DataTable();
+ data.addColumn('string', 'From');
+ data.addColumn('string', 'To');
+ data.addColumn('number', 'Weight');
+ data.addRows([
+['omia varoja yhteensa', 'Jäätteenmäki', 5013 ],
+['yksityishenkiloilta saatua tukea yhteensa', 'Jäätteenmäki', 16475.17 ],
+['puolueelta saatua tukea yhteensa', 'Jäätteenmäki', 5000 ],
+['puolueyhdistyksilta saatua tukea yhteensa', 'Jäätteenmäki', 32640.85 ],
+['Jäätteenmäki', 'Sanoma- ilmaisjakelu- ja aikakauslehdet', 39623.98 ],
+['Jäätteenmäki', 'Radio', 60 ],
+['Jäätteenmäki', 'Ulkomainonta', 2600 ],
+['Jäätteenmäki', 'Vaalilehtien esitteiden ja muun painetun materiaalin hankinta', 11791.16 ],
+['Jäätteenmäki', 'Mainonnan suunnittelu', 1460.10],
+['Jäätteenmäki', 'Vaalitilaisuudet', 3593.78 ]
+]);
+
+var options = {
+ width: 600
+};
+
+var chart = new google.visualization.Sankey(document.getElementById('sankey-basic'));
+chart.draw(data, options);
+}
+
+</script>
+</head>
+</html>
+
+
