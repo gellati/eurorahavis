@@ -1,0 +1,952 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vaalirahoitus</title>
+    <link rel="stylesheet" type="text/css" href="euro.css">
+
+<link type="text/css" rel="stylesheet" href="jquery.qtip.css" />
+
+</head>
+
+    <body>
+
+        <p>Kukin suorakulmio edustaa yhtä eurovaaleissa valittua EU-parlamentaarikkoa tai varasijalle valittua ehdokasta. Suorakulmioiden korkeus kuvastaa kuinka paljon rahaa parlamentaarikko käytti eurovaalien aikana. Suorakulmioita voi hiiren avulla siirtää toistensa viereen ja tällä tavalla vertailla paljonko rahaa ehdokkaat käyttivät suhteessa toisiinsa. Kaaret suorakulmioiden välillä edustavat parlamentaarikkojen yhteisiä rahoittajia.</p>
+
+        <p>Kun parlamentaarikkoa klikkaa hiirikursorilla, avautuu kuva jossa näkee mistä lähteistä edustaja sai rahaa ja mihin tarkoituksiin rahaa käytettiin.</p>
+        <div class="dataregion">
+<div class='help_parent'>
+  <div class='helpHolder'>
+    <span class='help_request'>?</span>
+    <span class='help_request' style='display:none;'>Sulje</span>
+  </div>
+  <div class='help_content' style='display:none;'>
+      Klikkaa suorakulmiota.
+  </div>
+</div>
+
+
+
+
+            <div id="paper"></div>
+            <div id="chart"></div>
+<!--        <label for="searchmenu"><span class="desc">Enter: </label> -->
+        <input id="searchmenu" type="text" placeholder="hello">
+            </div>
+        <div class="details">
+            <div id="personalsponsors"></div>
+            <div id="corporatesponsors"></div>
+            <div id="partysponsors"></div>
+            <div id="partyorgsponsors"></div>
+
+        </div>
+
+<footer>
+        <p>Datan lähde: Valtion tarkastusviraston <a href="www.vaalirahoitus.fi">Vaali- ja puoluerahoitusvalvonta-sivulta</a>
+        </p>
+</footer>
+
+
+        <!--        <script type="text/javascript" src="https://raw.github.com/DmitryBaranovskiy/raphael/300aa589f5a0ba7fce667cd62c7cdda0bd5ad904/raphael-min.js"></script>-->
+
+<!--        <script type="text/javascript" src="jquery-1.3.2.min.js"></script>-->
+        <script type="text/javascript" src="jquery-1.11.1.js"></script>
+        <script type="text/javascript" src="jquery-ui-1.11.1/jquery-ui.js"></script>
+        <script type="text/javascript" src="jquery.qtip-2.2.1.js"></script>
+
+<!--        <script type="text/javascript" src="jquery.qtip-1.0.0-rc3.js"></script>-->
+
+
+
+        <script type="text/javascript" src="raph2.js"></script>
+        <!--        <script type="text/javascript" src="jquery.balloon.js"></script> -->
+        <script type="text/javascript" src="taffy.js"></script>
+        <script type="text/javascript" src="data.js"></script>
+        <!--<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['sankey']}]}"></script> -->
+
+        <script type="text/javascript" src="d3-master/d3.js"></script>
+        <script type="text/javascript" src="sankey.js"></script>
+        <script type="text/javascript">
+
+parsedataforcytoscape();
+
+//             "m",
+
+            var files = [
+                "data/pietikainen.json",
+                "data/sarvamaa.json",
+                "data/stubb.json",
+                "data/virkkunen.json",
+                "data/halla-aho.json",
+                "data/ruohonen-lerner.json",
+                "data/terho.json",
+                "data/jaatteenmaki.json",
+                "data/rehn.json",
+                "data/takkula.json",
+                "data/vayrynen.json",
+                "data/gestrin.json",
+                "data/torvalds.json",
+                "data/harakka.json",
+                "data/jaakonsaari.json",
+                "data/kumpula-natri.json",
+                "data/andersson.json",
+                "data/kyllonen.json",
+                "data/hautala.json",
+                "data/tynkkynen.json"
+            ];
+
+            var selectedMEPdata;
+             //var selectedMEPdata = "data/jaatteenmaki.json";
+             //var selectedMEPid = 20;
+
+             //var selectedMEPdata = files[selectedMEPid];
+
+             //var aaa = selectchart(selectedMEPdata);
+
+             //var d = dsankeyselect(m);
+
+
+
+
+             //dsankeyselect(1);
+        </script>
+
+        <script type="text/javascript" src="dsankey.js"></script>
+
+
+
+
+        <script type="text/javascript">
+            // functionality to connect two objects
+
+            Raphael.fn.connection = function(obj1, obj2, str, line, bg) {
+                if (obj1.line && obj1.from && obj1.to) {
+                    line = obj1;
+                    obj1 = line.from;
+                    obj2 = line.to;
+                    //        obj1.string = str;
+
+                }
+                var bb1 = obj1.getBBox(),
+                    bb2 = obj2.getBBox(),
+                    p = [{
+                        x: bb1.x + bb1.width / 2,
+                        y: bb1.y - 1
+                    }, {
+                        x: bb1.x + bb1.width / 2,
+                        y: bb1.y + bb1.height + 1
+                    }, {
+                        x: bb1.x - 1,
+                        y: bb1.y + bb1.height / 2
+                    }, {
+                        x: bb1.x + bb1.width + 1,
+                        y: bb1.y + bb1.height / 2
+                    }, {
+                        x: bb2.x + bb2.width / 2,
+                        y: bb2.y - 1
+                    }, {
+                        x: bb2.x + bb2.width / 2,
+                        y: bb2.y + bb2.height + 1
+                    }, {
+                        x: bb2.x - 1,
+                        y: bb2.y + bb2.height / 2
+                    }, {
+                        x: bb2.x + bb2.width + 1,
+                        y: bb2.y + bb2.height / 2
+                    }],
+
+                    d = {},
+                    dis = [];
+                for (var i = 0; i < 4; i++) {
+                    for (var j = 4; j < 8; j++) {
+                        var dx = Math.abs(p[i].x - p[j].x),
+                            dy = Math.abs(p[i].y - p[j].y);
+                        if ((i == j - 4) || (((i != 3 && j != 6) || p[i].x < p[j].x) && ((i != 2 && j != 7) || p[i].x > p[j].x) && ((i != 0 && j != 5) || p[i].y > p[j].y) && ((i != 1 && j != 4) || p[i].y < p[j].y))) {
+                            dis.push(dx + dy);
+                            d[dis[dis.length - 1]] = [i, j];
+                        }
+                    }
+                }
+                if (dis.length == 0) {
+                    var res = [0, 4];
+                } else {
+                    res = d[Math.min.apply(Math, dis)];
+                }
+                var x1 = p[res[0]].x,
+                    y1 = p[res[0]].y,
+                    x4 = p[res[1]].x,
+                    y4 = p[res[1]].y;
+                dx = Math.max(Math.abs(x1 - x4) / 2, 10);
+                dy = Math.max(Math.abs(y1 - y4) / 2, 10);
+                var x2 = [x1, x1, x1 - dx, x1 + dx][res[0]].toFixed(3),
+                    y2 = [y1 - dy, y1 + dy, y1, y1][res[0]].toFixed(3),
+                    x3 = [0, 0, 0, 0, x4, x4, x4 - dx, x4 + dx][res[1]].toFixed(3),
+                    y3 = [0, 0, 0, 0, y1 + dy, y1 - dy, y4, y4][res[1]].toFixed(3);
+                var path = ["M", x1.toFixed(3), y1.toFixed(3), "C", x2, y2, x3, y3, x4.toFixed(3), y4.toFixed(3)].join(",");
+                if (line && line.line) {
+                    line.bg && line.bg.attr({
+                        path: path
+                    });
+                    line.line.attr({
+                        path: path
+                    });
+                } else {
+                    var color = typeof line == "string" ? line : "#000";
+                    
+                    return {
+                        bg: bg && bg.split && this.path(path).attr({
+                            stroke: bg.split("|")[0],
+                            fill: "none",
+                            "stroke-width": bg.split("|")[1] || 3
+                        }),
+                        line: this.path(path).attr({
+                            stroke: color,
+                            fill: "none",
+                        }),
+                        from: obj1,
+                        to: obj2,
+                        string: str
+                    };
+                }
+
+
+            };
+
+
+             // rounding function, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
+            (function() {
+
+                /**
+                 * Decimal adjustment of a number.
+                 *
+                 * @param	{String}	type	The type of adjustment.
+                 * @param	{Number}	value	The number.
+                 * @param	{Integer}	exp		The exponent (the 10 logarithm of the adjustment base).
+                 * @returns	{Number}			The adjusted value.
+                 */
+                function decimalAdjust(type, value, exp) {
+                    // If the exp is undefined or zero...
+                    if (typeof exp === 'undefined' || +exp === 0) {
+                        return Math[type](value);
+                    }
+                    value = +value;
+                    exp = +exp;
+                    // If the value is not a number or the exp is not an integer...
+                    if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+                        return NaN;
+                    }
+                    // Shift
+                    value = value.toString().split('e');
+                    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+                    // Shift back
+                    value = value.toString().split('e');
+                    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+                }
+
+                // Decimal round
+                if (!Math.round10) {
+                    Math.round10 = function(value, exp) {
+                        return decimalAdjust('round', value, exp);
+                    };
+                }
+                // Decimal floor
+                if (!Math.floor10) {
+                    Math.floor10 = function(value, exp) {
+                        return decimalAdjust('floor', value, exp);
+                    };
+                }
+                // Decimal ceil
+                if (!Math.ceil10) {
+                    Math.ceil10 = function(value, exp) {
+                        return decimalAdjust('ceil', value, exp);
+                    };
+                }
+
+            })();
+        </script>
+
+
+<script type="text/javascript">
+    function countMoney(mep, n) {
+        mep.omatvarat = omatvarat({
+            member: n
+        }).first().sum;
+        mep.lainarahat = lainarahat({
+            member: n
+        }).first().sum;
+        mep.henkilotuki = henkilotuki({
+            member: n
+        }).first().sum;
+        mep.yritystuki = yritystuki({
+            member: n
+        }).first().sum;
+        mep.puoluetuki = puoluetuki({
+            member: n
+        }).first().sum;
+        mep.puolueyhdistystuki = puolueyhdistystuki({
+            member: n
+        }).first().sum;
+        mep.muutuki = muutuki({
+            member: n
+        }).first().sum;
+        mep.totalfunding = Math.round10(mep.omatvarat + mep.lainarahat + mep.henkilotuki + mep.yritystuki + mep.puoluetuki + mep.puolueyhdistystuki + mep.muutuki, -2);
+
+        mep.omaraha = mep.omatvarat + mep.lainarahat;
+        mep.hyraha = mep.henkilotuki + mep.yritystuki;
+        mep.puolueraha = mep.puoluetuki + mep.puolueyhdistystuki;
+        mep.muuraha = mep.muutuki;
+        return;
+
+    };
+
+    // return number of objects in object array, eg. number of parliamentarians
+    Object.size = function(obj) {
+        var size = 0,
+            key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) size++;
+        }
+        return size;
+    };
+
+    // find maximum funding
+    function maxFunding(meps) {
+        var nmeps = Object.size(meps);
+        maxsum = 0;
+        for (var i = 0; i < nmeps; i++) {
+            if (meps[i].totalfunding > maxsum) {
+                maxsum = meps[i].totalfunding;
+            }
+        }
+        return maxsum;
+
+    };
+
+    // find smallest funding
+    function minFunding(meps) {
+        var nmeps = Object.size(meps);
+        minsum = 100000000;
+        for (var i = 0; i < nmeps; i++) {
+            if (meps[i].totalfunding < minsum) {
+                minsum = meps[i].totalfunding;
+            }
+        }
+        return minsum;
+    };
+
+
+    var paper = Raphael('paper');
+
+    paper.setViewBox(0, 0, paper.width, paper.height);
+
+
+    var reps = rahoitusyhteensa().distinct("id").length;
+    var xpos = 0;
+    var ypos = 0;
+    var phi = 0;
+    var increment = 2 * Math.PI / reps;
+    var radius = 250;
+    var namerad = 1.3;
+
+    var cMEP = "#f00";
+    var cMEPselected = "#a00";
+
+// party color legend
+
+ 
+    drawLegend(paper);
+    drawHelpIcon(paper);
+  
+    var MEP = {};
+
+    for (var j = 0; j < reps; j++) {
+        xpos = paper.width / 2 + radius * Math.cos(phi);
+        ypos = paper.height / 2 + radius * Math.sin(phi);
+
+        var MEPmaxheight = 60 * rahoitusyhteensa({
+            member: j
+        }).first().sum / rahoitusyhteensa().max("sum");
+        var MEPmaxwidth = 15;
+
+        MEP[j] = paper.rect(xpos, ypos, MEPmaxwidth, MEPmaxheight).attr({
+            "border": cMEP,
+            "fill": cMEP,
+            "fill-opacity": 0
+        });
+        countMoney(MEP[j], j);
+
+
+        var omatvarat;
+
+        MEP[j].xpos = xpos;
+        MEP[j].ypos = ypos;
+        MEP[j].name = members({
+            id: j
+        }).first().name;
+        MEP[j].party = members({
+            id: j
+        }).first().party;
+        MEP[j].phi = phi;
+        MEP[j].color = cparties({
+            party: MEP[j].party
+        }).first().color;
+
+        MEP[j].attr({
+            "border": MEP[j].color
+        });
+        MEP[j].id = j;
+        
+        
+
+        // make bigger hover areas
+        // http://www.trottercashion.com/2011/04/07/creating-hovers-with-raphael.html
+
+        // http://www.petercollingridge.co.uk/data-visualisation/mouseover-effects-svgs
+
+        // http://stackoverflow.com/questions/3417479/how-to-do-a-tooltip-on-an-svg-generated-by-raphael
+        // interactive pie chart: http://jsfiddle.net/vedmack/cuaBX/
+
+        // http://mckay.cshl.edu/balloons.html
+        // http://file.urin.take-uma.net/jquery.balloon.js-Demo.html
+
+        // hide/ show object
+        // http://stackoverflow.com/questions/13157070/how-can-i-show-hide-a-raphael-object-with-button-click-event
+
+        phi += increment;
+
+
+        /*MEP[j].onclick = function(){
+
+          $.fancybox({
+            "width": "75%",
+            "height": "75%",
+            "type": "iframe" 
+            });
+
+        };*/
+
+        namerad = 0.25
+        if (j > (reps ) / 4 && j < (reps + 1) / 3) {
+            namerad = 0.4;
+        }
+
+        if (j > (reps + 1) / 3 && j < (reps + 3) / 2) {
+            namerad = 0.8;
+        }
+
+
+        //'<img class="h" src="/home/omar/Desktop/HobbyProjects/AppsLounais2014/vaalirahatest/Attac_logo.png" height=60px alt="loading..." />',
+
+
+   //      MEP[j].balloon = paper.set();
+   //      MEP[j].balloon.push(MEP[j].balloonarea, MEP[j].balloontext, MEP[j].balloonline);
+
+
+
+
+        $(MEP[j].node).qtip({
+                hide: {
+                    delay: 500,
+                    fixed: true,
+                    event: false
+                },
+                content: {
+                    title: MEP[j].name,
+                    text: (MEP[j].totalfunding).toLocaleString("fi-FI") + " euroa",
+                    button: 'close'
+                },
+                style: {
+                    background: "#000000",
+                    color: "#ffffff",
+                    border: {
+                        width: 16,
+                        radius: 3,
+                        color: MEP[j].color
+                    }
+                }                
+            }
+
+        );
+/*                
+                ,
+                position: {
+                    corner: {
+                        target: "mouse",
+                        tooltip: "bottomLeft"
+                    }
+                }
+  */              
+                
+
+/*
+                    adjust: {
+                        x: namerad * radius * Math.cos(MEP[j].phi),
+                        y: namerad * radius * Math.sin(MEP[j].phi)
+                    }
+*/
+
+
+
+
+  var balloonwidth = 100;
+  var balloonheight = 50;
+  var balloonmargin = 20;
+  var namerad = 1.3;
+
+        if (j > (reps ) / 4 && j < (reps + 1) / 3) {
+            namerad = 1.2;
+        }
+
+        if (j > (reps + 1) / 3 && j < (reps + 3) / 2) {
+            namerad = 1.5;
+        }
+
+
+
+
+
+
+
+        MEP[j].balloontext = paper.text(
+                   paper.width/2 + namerad * radius * Math.cos(MEP[j].phi) + balloonwidth/2,
+                   paper.height/2 + namerad * radius * Math.sin(MEP[j].phi) + balloonheight/2,
+                   MEP[j].name + "\n" + MEP[j].totalfunding).attr("fill", "#000");
+
+
+
+
+
+
+
+        MEP[j].mousedown(function(evt) {
+        	drawChart(files[this.id]);
+
+         getSponsor(this.id, "personalsponsors", "Suurimmat henkilölahjoittajat");
+         getSponsor(this.id, "corporatesponsors", "Suurimmat yrityslahjoittajat");
+         getSponsor(this.id, "partysponsors", "Suurimmat puoluerahoittajat");
+         getSponsor(this.id, "partyorgsponsors", "Suurimmat puolueyhdistysrahoittajat");
+         getSponsor(this.id, "othersponsors", "Suurimmat muut tukijat");
+         this.balloontext.hide();
+        	        	
+        }) // mouseover function
+        
+
+        
+        MEP[j].mouseout(function(evt) {
+                //    svg.remove();
+                //delete svg;
+
+                //sankey.hide();
+                //svg.hide();
+                //$("chart").hide().show(0);
+                //  document.getElementById("chart").style.display = "none";
+                //  document.getElementById("chart").style.display = "block";
+
+                //svg.fillRect(0,0,400,500);
+                //sankey.fillRect(0,0,400,500);
+
+
+
+
+                /*
+                var c = .getElementById("chart");
+                var ctx = c.getContext("2d");
+                ctx.fillStyle = "#FF0000";
+                ctx.fillRect(0,0,802,500);
+                */
+
+        }); // mouseout function
+    } // for j
+
+
+    // zooming functionality removed from here and placed in zoominfunc.bkup
+
+    var viewBoxWidth = paper.width;
+    var viewBoxHeight = paper.height;
+    var canvasID = "#paper";
+    var startX, startY;
+    var mousedown = false;
+    var dX, dY;
+    var oX = 0,
+        oY = 0,
+        oWidth = viewBoxWidth,
+        oHeight = viewBoxHeight;
+    var viewBox = paper.setViewBox(oX, oY, viewBoxWidth, viewBoxHeight);
+    viewBox.X = oX;
+    viewBox.Y = oY;
+
+    //Pane
+    $(canvasID).mousedown(function(e) {
+        //            dX = 0;
+        //            dY = 0;
+        if (paper.getElementByPoint(e.pageX, e.pageY) != null) {
+            return;
+        }
+        mousedown = true;
+        startX = e.pageX;
+        startY = e.pageY;
+    });
+
+    $(canvasID).mousemove(function(e) {
+        if (mousedown == false) {
+            return;
+        }
+        dX = startX - e.pageX;
+        dY = startY - e.pageY;
+
+
+        x = viewBoxWidth / paper.width;
+        y = viewBoxHeight / paper.height;
+
+        dX *= x;
+        dY *= y;
+
+    })
+
+    $(canvasID).mouseup(function(e) {
+        if (mousedown == false) return;
+        viewBox.X += dX;
+        viewBox.Y += dY;
+        mousedown = false;
+
+    });
+
+
+    connections = [];
+
+
+    var dragger = function() {
+        this.xpos = this.type == "rect" ? this.attr("x") : this.attr("cx");
+        this.ypos = this.type == "rect" ? this.attr("y") : this.attr("cy");
+
+        //        this.animate({"fill-opacity": .2}, 500);
+    }
+    move = function(dx, dy) {
+
+        //            var att = this.type == "rect" ? {x: this.ox + dx, y: this.oy + dy} : {cx: this.ox + dx, cy: this.oy + dy};
+
+        var att = this.type == "rect" ? {
+            x: this.xpos + dx,
+            y: this.ypos + dy
+        } : {
+            cx: this.xpos + dx,
+            cy: this.ypos + dy
+        };
+
+
+        this.attr(att);
+        for (var i = connections.length; i--;) {
+            paper.connection(connections[i]);
+            /*
+                   $(connections[i].node).qtip({
+                      hide: {delay:500},
+                       content: {
+                             text:this.string
+                             },
+                       position: {
+                              target:"mouse",
+                              adjust: {x: 5, y: 5}
+                            }
+                     });
+              */
+
+        }
+        paper.safari();
+    }
+    up = function() {
+        //          this.animate({"fill-opacity": 0}, 500);
+    }
+
+    // perussuomalaisten puoluetuki
+    connections.push(paper.connection(MEP[4], MEP[5], "Perussuomalaiset rp", "#000"));
+    connections.push(paper.connection(MEP[4], MEP[6], "Perussuomalaiset rp", "#000"));
+    connections.push(paper.connection(MEP[5], MEP[6], "Perussuomalaiset rp", "#000"));
+
+    // Keskustan puoluetuki
+    connections.push(paper.connection(MEP[7], MEP[8], "Suomen Keskusta rp", "#000"));
+    connections.push(paper.connection(MEP[7], MEP[9], "Suomen Keskusta rp", "#000"));
+    connections.push(paper.connection(MEP[7], MEP[10], "Suomen Keskusta rp", "#000"));
+    connections.push(paper.connection(MEP[8], MEP[9], "Suomen Keskusta rp", "#000"));
+    connections.push(paper.connection(MEP[8], MEP[10], "Suomen Keskusta rp", "#000"));
+    connections.push(paper.connection(MEP[9], MEP[10], "Suomen Keskusta rp", "#000"));
+
+    // RKP:n puoluetuki
+    connections.push(paper.connection(MEP[11], MEP[12], "Svenska folkpartiet i Finland rp", "#000"));
+
+    // SDP:n puoluetuki
+    connections.push(paper.connection(MEP[13], MEP[14], "Suomen Sosialidemokraattinen Puolue rp", "#000"));
+    connections.push(paper.connection(MEP[13], MEP[15], "Suomen Sosialidemokraattinen Puolue rp", "#000"));
+    connections.push(paper.connection(MEP[14], MEP[15], "Suomen Sosialidemokraattinen Puolue rp", "#000"));
+
+    // vihreiden puoluetuki
+    connections.push(paper.connection(MEP[18], MEP[19], "Vihreä liitto rp", "#000"));
+
+    // muut tukijat
+    connections.push(paper.connection(MEP[0], MEP[13], "Ammattiliitto Pro ry", "#000")); // ammattiliitto pro
+    connections.push(paper.connection(MEP[14], MEP[15], "TEAM", "#000")); // TEAM
+
+    for (var i = 0; i < reps; i++) {
+        var color = Raphael.getColor();
+        MEP[i].attr({
+            "border": MEP[i].color,
+            "stroke": MEP[i].color,
+            "stroke-width": 2,
+            cursor: "move"
+        });
+        MEP[i].drag(move, dragger, up);
+    }
+
+// show the sponsors when hovering over line
+for(var i = 0; i < connections.length; i++){
+connections[i].line.attr("stroke-width", "4");
+$(connections[i].line.node).qtip(
+                       {content:
+                            {text:connections[i].string},
+                        hide:
+                            {delay:500},
+                        position:
+                           {corner: {
+                               target: "mouse"
+//                               tooltip: "bottomLeft"
+                                     }
+                           }
+                        }
+                        );
+
+} // for
+
+
+
+  // open up a new window when clicking on a rectangle
+
+
+        function newWindow(){
+          var w = window.open('','','width=600, height=600');
+
+var html = ('<html><head><title>Console</title></head>'
+   +'<body bgcolor=green>'
+   +'content'
+   + '<img src="Attac_logo.png">'
+   +'</body></html>');
+   
+   html = ('<html><head><title>svg</title></head>'
+   + '<body>'
+   + '<div id="chart" width="300px" height="200px">'
+   + svg
+   + '</div>'
+   + '</body>');
+   
+   html = ('<html><head><title>svg</title></head>'
+   + '<body>'
+   + '<svg id="chart" width="300px" height="200px">'
++ svg
+   + '</svg>'
+   + '</body>');
+   
+w.document.writeln(html);
+
+console.log(svg);
+
+        }
+/*
+
+        $(function() {
+          $('rect').click(newWindow);
+        });
+*/
+
+
+/*
+for(var j = 0; j < Object.size(MEP); j++){
+ MEP[j].hover(function(){
+ for(var i = 0; i < pp.length; i++){
+  if(pp[i].party == MEP[j].party){
+    console.log(pp[i].party);
+    console.log(MEP[j].party);
+
+    pp[i].attr({"stroke-width":10});
+   }
+  }
+ });
+}
+*/
+
+
+
+     /*
+
+$().ready(function(){
+
+     var url = MEPpages({member:1}).first().page;
+     $.get(url, function(data){
+//     console.log(url);
+     success: function(data) {
+          var elements = $("<div>").html(data)[0].getElementsByTagName("img"); //[0].getElementsByTagName("li");
+console.log(elements);
+          for(var i = 0; i < elements.length; i++) {
+               var theText = elements[i].firstChild.nodeValue;
+               // Do something here
+          }
+     }
+
+});
+});
+*/
+
+
+//         getPersonSponsor(this.id);
+
+function getSponsor(p, sponsordiv, label){
+   var s = "#" + sponsordiv;
+	$(s).empty();
+console.log(s);
+
+var h = {};
+switch (sponsordiv){
+  case "personalsponsors":
+   h = henkilotukihenkilot({"member": p}).get(); 
+   break;
+  case "corporatesponsors":
+   h = yritystukiyritykset({"member":p}).get();
+   break;
+  case "partysponsors":
+   h = puoluetukipuolue({"member":p}).get();
+   break;
+  case "partyorgsponsors":
+   h = puolueyhdistystukiyhdistykset({"member":p}).get();
+   break;
+  case "othersponsors":
+   h =  muutukitahot({"member":p}).get();
+   break;
+  default:
+   h = "";
+}
+
+  if (h == ""){
+   return;
+  }
+   var area = document.getElementById(sponsordiv);
+   var div = document.createElement("div");
+   var h3 = document.createElement("h3");
+
+   h3.innerHTML = label;
+
+   div.appendChild(h3);
+
+   var ul = document.createElement("ul");
+   div.appendChild(ul);
+
+   for(var i = 0; i < Object.size(h); i++){
+      var li = document.createElement("li");
+      li.innerHTML = h[i].name + " " + (h[i].sum).toLocaleString("fi-FI") + " euroa";
+      div.appendChild(li);
+   }
+
+   area.appendChild(div);
+return;
+}
+
+
+   function drawLegend(paper){
+    var pp = {};
+    var partycolors = cparties().select("color");
+    var parties = cparties().select("party");
+    var ppdist = 20;
+    var i = 0;
+
+    for(i = 0; i < partycolors.length - 3; i++){
+     pp[i] = paper.circle(40, (i+1)*ppdist, 5)
+     .attr({"fill-opacity": 0, "stroke": partycolors[i], "stroke-width": 2});
+    // pp[i].attr("border", partycolors[i]);
+     pp[i].party = parties[i];
+     var partylegends = paper.text(80, (i+1)*ppdist, parties[i]);  
+    }
+//    pp[i] = paper.path("M5,1.466C5,2.00");
+//    pp[i].translate(40, (i + 1) * ppdist, 5);
+    
+}
+
+   function drawHelpIcon(paper){
+    var helpicon = paper.path("M16,1.466C7.973,1.466,1.466,7.973,1.466,16c0,8.027,6.507,14.534,14.534,14.534c8.027,0,14.534-6.507,14.534-14.534C30.534,7.973,24.027,1.466,16,1.466z M17.328,24.371h-2.707v-2.596h2.707V24.371zM17.328,19.003v0.858h-2.707v-1.057c0-3.19,3.63-3.696,3.63-5.963c0-1.034-0.924-1.826-2.134-1.826c-1.254,0-2.354,0.924-2.354,0.924l-1.541-1.915c0,0,1.519-1.584,4.137-1.584c2.487,0,4.796,1.54,4.796,4.136C21.156,16.208,17.328,16.627,17.328,19.003z").attr({fill: "#000", stroke: "none"});
+    helpicon.translate(paper.width - 50, 50);
+    
+//    var helpicon = paper.text(paper.width - 50, 50, "?").attr({"font-size":20, "fill-opaque": 0})
+    helpicon.mousedown(function (evt){
+    
+    $(helpicon.node).qtip({
+    hide:
+      {delay:500,
+      fixed:true},
+    content:
+      {text: "Klikkaa suorakulmiota saadaksesi lisää tietoa sen esittämästä edustajasta.",
+       button: close}
+    });
+   
+    });
+}
+
+
+ 
+
+/* // what did this do???
+$(document).ready(function(){
+       $('.help_request').live('click',function(){
+      $(this).parent().children().toggle();  //swaps the display:none between the two spans
+      $(this).parent().parent().find('.help_content').slideToggle();  //swap the display of the main content with slide action
+  });
+    
+});
+*/
+
+var data = [
+{value: "1", label: "one"},
+{value: "2", label: "two"},
+{value: "3", label: "three"},
+{value: "4", label: "four"},
+{value: "5", label: "five"},
+{value: "6", label: "six"}
+];
+
+data2 = [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ];
+
+$(function(){
+$( "#searchmenu" ).autocomplete({
+source: data2
+});
+});
+
+function parsedataforcytoscape(){
+
+for(var i = 0; i < 20; i++){
+        var a = omatvarat({"member": i}).get();
+console.log(a.sum);
+
+//   h = henkilotukihenkilot({"member": p}).get(); 
+}
+
+}
+
+
+
+/*
+<div class='help_parent'>
+  <div class='helpHolder'>
+    <span class='help_request'>?</span>
+    <span class='help_request' style='display:none;'>Sulje</span>
+  </div>
+  <div class='help_content' style='display:none;'>
+      My Content
+  </div>
+</div>
+*/
+
+
+
+
+
+
+</script>
+
+</body>
+
+</html>

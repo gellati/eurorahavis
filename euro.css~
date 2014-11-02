@@ -1,0 +1,106 @@
+        /*body{padding:10px;overflow:hidden;background:#dcdcdc} */
+        .dataregion {
+            width: 1800px;
+            height: 800px;
+        }
+        #paper {
+            width: 800px;
+            height: 800px;
+            margin: 20px;
+            border: 1px solid;
+            background: #fff;
+            float: left;
+        }
+        #_searchmenu{
+        	width: 200px;
+        	height: 50px;
+/*        	float:right;*/
+        	}
+
+
+        .details {
+            width: 300px;
+            height: 500px;
+        }
+
+#help_parent{position: absolute; right: 500px;top:2px;}
+#helpHolder{position: absolute; right: 500px;top:2px;}
+
+       #personalsponsors{color: #333;text-decoration: none;width: 100px; height:50px}
+       #corporatesponsors{color: #333;text-decoration: none;}
+       #partysponsors{color: #333;text-decoration:none;}
+       #partyorgsponsors{color: #333;text-decoration: none;}
+
+
+        footer{
+        float: left;
+        }
+        #chart {
+            height: 800px;
+            width: 800px;
+            float: left;
+            margin: 50px;
+        }
+        #chart .node rect {
+            cursor: move;
+            fill-opacity: .9;
+            shape-rendering: crispEdges;
+        }
+        ._node text {
+            pointer-events: none;
+            text-shadow: 0 1px 0 #fff;
+        }
+        .link {
+            fill: none;
+            stroke: #000;
+            stroke-opacity: .2;
+        }
+        .link:hover {
+            stroke-opacity: .5;
+        }
+
+/* highlight results */
+.ui-autocomplete span.hl_results {
+    background-color: #ffff66;
+}
+ 
+/* loading - the AJAX indicator */
+_.ui-autocomplete-loading {
+    background: white url('../img/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+ 
+/* scroll results */
+.ui-autocomplete {
+    max-height: 250px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    /* add padding for vertical scrollbar */
+    padding-right: 5px;
+}
+ 
+ /* color of autocomplete list */
+.ui-autocomplete li {
+    font-size: 16px;
+    list-style: none;
+    background-color: black;
+    color: white;
+    width: 180px;
+    position: relative;
+    left: -38px;
+}
+
+/* color when selecting from autocomplete field */
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus
+{
+    color: green;
+    background: yellow;
+ }
+
+ 
+/* IE 6 doesn't support max-height
+* we use height instead, but this forces the menu to always be this tall
+*/
+* html .ui-autocomplete {
+    height: 250px;
+}

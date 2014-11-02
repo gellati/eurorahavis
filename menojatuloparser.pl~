@@ -97,7 +97,7 @@ print $out . "\n";
    next;
   }
   if ($counter < scalar(@incomes)){
-   print $incomes[$inc] . " " . $counter . " " . $ncount . " " . @{$data}[$i] . "\n";
+   print $incomes[$inc] . " " . $ncount . " " . $counter . " " . @{$data}[$i] . "\n";
    $ncount++;
    $inc++;
    next;

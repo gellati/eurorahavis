@@ -1,0 +1,354 @@
+#!/usr/bin/perl -w
+
+use warnings;
+use strict;
+use utf8;
+
+use HTML::TokeParser; # # http://lwp.interglacial.com/ch07_02.htm
+use LWP::Simple;
+use Encode;
+use Data::Dumper;
+
+#my $file = "Vaali ja puoluerahoitusvalvonta -.html";
+
+my $baseurl = "http://vaalirahoitus.fi";
+
+my @urls = ();
+
+# national parliamentary elections 2011
+@urls = ("http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/01.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/02.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/03.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/04.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/05.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/06.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/07.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/08.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/09.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/10.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/11.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/12.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/13.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/14.html",
+"http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EV2011/15.html");
+
+# presidential elections 2012
+#@urls = ("http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/PV2012.html");
+
+# EU parliament elections 2014
+@urls = ("http://www.vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EUV2014.html");
+
+
+# this works
+my ($names, $links) = get_candidate_links(\@urls);
+my $i = 0;
+for ($i =0; $i < scalar(@{$names}); $i++){
+print @{$names}[$i] . "\n"; # . " " . $links[$i] . "\n";
+print $baseurl . @{$links}[$i] . "\n";
+
+get_funding_data($baseurl . @{$links}[$i]);
+print "\n";
+}
+
+
+#my $url = "http://vaalirahoitus.fi/fi/index/vaalirahailmoituksia/ilmoituslistaus/EUV2014/FI/8YbmLqVw1/E_VI_EUV2014.html";
+#get_funding_data($url);
+
+
+sub get_funding_data{
+  my $url = shift;
+
+  my %funding_data = ();
+  my $file = get($url);
+
+  my $row = 0;
+  my $form_table = 0;
+  my $section_counter = 0;
+  my $form = 0;
+  my $script = 0;
+  
+
+# A section information
+  my $name = 0;
+  my $info = 0;
+  my $party = 0;
+
+  my $stream = HTML::TokeParser->new(\$file);
+
+# temporary variables
+  my $s = "";
+  my $l = "";
+
+
+  while(my $token = $stream->get_token){
+
+# check if we are in a table row
+    if($token->[0] eq "S" && $token->[1] eq 'tr'){
+      $row = 1;
+    }
+    if($token->[0] eq "E" && $token->[1] eq 'tr'){
+      $row = 0;
+    }
+
+# we have entered the form
+    if($token->[0] eq "S" && $token->[1] eq 'div'){
+      if ($token->[2]{'class'}){
+        if($token->[2]{'class'} eq 'ann_form'){
+          $form = 1;
+          next;
+        }
+      }
+    }
+
+# the form has been exited
+    if($token->[0] eq "S" && $token->[1] eq 'div'){
+      if ($token->[2]{'class'}){                     # check existence
+        if($token->[2]{'class'} eq 'updatetime'){
+          $form = 0;
+        }
+      }
+    }
+
+
+
+    if($form == 1){ ## only parse elements inside the form
+
+# skip the javascripts in the page source
+        if($token->[0] eq "S" && $token->[1] eq 'script' && $script == 0){
+        $script = 1;
+        next;
+        }
+        if($token->[0] eq "T" && $script == 1){
+        next;
+        }        
+        if($token->[0] eq "E" && $token->[1] eq 'script' && $script == 1){
+        $script = 0;
+        next;
+        }
+
+
+
+
+
+ # we have entered a section
+      if($token->[0] eq "S" && $token->[1] eq 'h1'){
+        $form_table = 0;
+        $section_counter++;
+      }
+
+  #    if($token->[2]{'class'} eq 'ann_form_table_basic'){
+  #      $form_table = 1;
+  #      print Dumper ($token);
+  #      print "seciton" . "\n";
+  #    }
+
+
+
+      if($section_counter == 1){ # we are in A section
+        if($token->[0] eq "S" && $token->[1] eq 'td'){
+          $name = 1;
+          next;
+        }
+        if($token->[0] eq "T" && $name == 1){
+#          $s = $token->[1];
+           $s = convert2utf8($token->[1]);
+ #         $s =~ s/^\s+|\s+$//g; # get rid of whitespace
+          if($s =~ /^$/){next;}
+  #        $s = encode("utf8", decode("ascii", $s)); # encode into utf8
+          print $s . "\n";
+#       print $token->[1];
+          $name = 0;
+          $info = 1;
+          next;
+        }
+
+        if($token->[0] eq "T" && $info == 1){
+           $s = convert2utf8($token->[1]);
+          if($s =~ /^$/){ next; }
+#         $s = $token->[1];
+#          $s =~ s/^\s+|\s+$//g; # get rid of whitespace
+ #         $s = encode("utf8", decode("iso-8859-1", $s)); # encode into utf8
+          print $s . "\n";
+#      print $token->[1];
+          $info = 0;
+          $party = 1;
+          next;
+        }
+
+        if($token->[0] eq "T" && $party == 1){
+          $s = convert2utf8($token->[1]);
+#          $s = $token->[1];
+#          $s =~ s/^\s+|\s+$//g; # get rid of whitespace
+
+          if($s =~ /^$/){ next;}
+#          $s = encode("utf8", decode("iso-8859-1", $s)); # encode into utf8
+          print $s . "\n";
+          $party = 0;
+          next;
+        }
+      } # out from A section
+
+      if($section_counter == 2){ # B section
+        if($token->[0] eq "T"){
+          $s = convert2utf8($token->[1]);
+          if($s =~ /^$/){next;}
+          if($s =~ /eur/){next;}
+#          $s =~ s/Rahoitus sisältää//g;
+
+
+          print $s . "\n";
+        }
+      } # out from B section
+
+      
+      if($section_counter == 3){ # C section
+        
+        
+        if($token->[0] eq "T"){
+          $s = convert2utf8($token->[1]);
+#          $s = $token->[1];
+#          $s =~ s/^\s+|\s+$//g; # get rid of whitespace
+#          $s = encode("utf8", decode("ascii", $s)); # encode into utf8
+          if($s =~ /^$/){next;}
+          if($s =~ /eur/){next;}
+          print $s . "\n";
+        }      
+      } # out from C section
+
+
+      if($section_counter == 4){ # D section
+#        if($token->[0] eq "T" && $token->[1] eq 'script'){next;}
+        if($token->[0] eq "T"){
+          $s = convert2utf8($token->[1]);
+          if($s =~ /^$/){next;}
+          if($s =~ /eur/){next;}
+          if($s =~ /:/){next;}
+          print $s . "\n";
+        }      
+      } # out from D section
+
+      if($section_counter == 5){ # E section
+#        if($token->[0] eq "T" && $token->[1] eq 'script'){next;}
+        if($token->[0] eq "T"){
+          $s = convert2utf8($token->[1]);
+          if($s =~ /^$/){next;}
+          if($s =~ /eur/){next;}
+          if($s =~ /:/){next;}
+          print $s . "\n";
+        }      
+      } # out from E section
+
+
+    }
+  }
+  
+  return;
+}
+
+
+
+
+
+
+
+sub convert2utf8{
+my $s = shift;
+$s =~ s/^\s+|\s+$//g; # get rid of whitespace
+$s =~ s/&auml;/ä/g;
+$s =~ s/&ouml;/ö/g;
+$s = encode("utf8", $s);
+return $s;
+}
+
+
+
+
+
+
+
+
+sub get_candidate_links{
+my $urls = shift;
+
+# initialise arrays for names and candidate links
+my @names = ();
+my @links = ();
+
+
+foreach my $url(@{$urls}){
+
+my $file = get($url);
+
+# http://lwp.interglacial.com/ch07_02.htm
+
+my $stream = HTML::TokeParser->new(\$file);
+
+#print $stream;
+my $s = "";
+my $l = "";
+
+# flags
+my $ntrue = 0; # we have a name if true
+my $link = 0;
+my $entry = 0;
+my $row = 0;
+
+while(my $token = $stream->get_token){
+
+# check if we are in a table row
+if($token->[0] eq "S" && $token->[1] eq 'tr'){
+$row = 1;
+}
+if($token->[0] eq "E" && $token->[1] eq 'tr'){
+$row = 0;
+}
+
+
+# we have an entry
+if($token->[0] eq "S" && $token->[1] eq 'td'){
+$ntrue = 1;
+$entry = 1;
+}
+
+# there is a name
+if($token->[0] eq "T" && $ntrue == 1 && $entry == 1 && $row == 1){
+$s = $token->[1];
+
+$s =~ s/^\s+|\s+$//g; # get rid of whitespace
+$s = encode("utf8", decode("iso-8859-1", $s)); # encode into utf8
+$s =~ s/&#44;&nbsp;/ /;  # replace the funny stuff with a space between first and last name
+$s =~ s/^\s+|\s+$//g; # get rid of more whitespace
+if($s =~ /^$/){ # no empty strings
+next;
+}
+if($s =~ /ilmoitus/){ # no *ilmoitus strings
+next;
+}
+if($s =~ /\d+/){ # name contains not digits
+next;
+}
+
+# skip the exceptions
+if($s =~ /Kokoomus|Perussuomalaiset|Keskusta|uolue|liitto|valvonta/){
+next;
+}
+
+push (@names, $s); # store the names
+$ntrue = 0;
+}
+
+# there is a link to the funding data
+if($token->[0] eq "S" && $token->[1] eq "a" && $entry == 1 && $row == 1){
+$l = $token->[2]{"href"};
+if($l =~ /_EI_/){  # get rid of preliminary notifications / ennakkoilmoitukset
+next;
+}
+push(@links, $l); # store the funding data #$token->[2]{"href"});
+$entry = 0;
+}
+
+}
+}
+
+return \@names, \@links;
+}

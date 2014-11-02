@@ -2,7 +2,8 @@
 // data
 
 var members = TAFFY();
-members.insert([{id: 1, name:"Sirpa Pietikäinen", party:"KOK"},
+members.insert([
+{id: 1, name:"Sirpa Pietikäinen", party:"KOK"},
 {id: 2, name:"Petri Sarvamaa", party:"KOK"},
 {id: 3, name:"Alexander Stubb", party:"KOK"},
 {id: 4, name:"Henna Virkkunen", party:"KOK"},
@@ -148,16 +149,16 @@ yritystuki.insert([
 
 var yritystukiyritykset = TAFFY();
 yritystukiyritykset.insert([
-{id:1, member: 1, sum: 4032, yritys: "Lammin Säästöpankki"},
-{id:2, member: 1, sum: 2400, yritys: "Wipunen varainhallinta oy"},
-{id:3, member: 3, sum: 2400, yritys: "Commit oy"},
-{id:4, member: 3, sum: 2400, yritys: "Havator Group oy"},
-{id:5, member: 3, sum: 2400, yritys: "Nokian Renkaat oyj"},
-{id:6, member: 3, sum: 2400, yritys: "Tamro oyj"},
-{id:7, member: 9, sum: 2900, yritys: "Saga Furs Oyj"},
-{id:8, member:13, sum:8000, yritys: "Svenska Bildningsförbundet r.f."},
-{id:9, member:13, sum:10000, yritys:"Stiftelsen för det tvåspråkiga Finland"},
-{id:10, member:16, sum:1660, yritys: "P4 Consulting Oy"},
+{id:1, member: 1, sum: 4032, name: "Lammin Säästöpankki"},
+{id:2, member: 1, sum: 2400, name: "Wipunen varainhallinta oy"},
+{id:3, member: 3, sum: 2400, name: "Commit oy"},
+{id:4, member: 3, sum: 2400, name: "Havator Group oy"},
+{id:5, member: 3, sum: 2400, name: "Nokian Renkaat oyj"},
+{id:6, member: 3, sum: 2400, name: "Tamro oyj"},
+{id:7, member: 9, sum: 2900, name: "Saga Furs Oyj"},
+{id:8, member:13, sum:8000, name: "Svenska Bildningsförbundet r.f."},
+{id:9, member:13, sum:10000, name:"Stiftelsen för det tvåspråkiga Finland"},
+{id:10, member:16, sum:1660, name: "P4 Consulting Oy"},
 ]);
 
 
@@ -187,20 +188,20 @@ puoluetuki.insert([
 
 var puoluetukipuolue = TAFFY();
 puoluetukipuolue.insert([
-{id: 1, member: 5, sum: 4055.61, puolue: "Perussuomalaiset rp"},
-{id: 2, member: 6, sum: 10000, puolue: "Perussuomalaiset rp"},
-{id: 3, member: 7, sum: 10000, puolue: "Perussuomalaiset rp"},
-{id: 4, member: 8, sum: 5000, puolue: "Suomen Keskusta rp"},
-{id: 5, member: 9, sum: 5000, puolue: "Suomen Keskusta rp"},
-{id: 6, member: 10, sum: 5000, puolue: "Suomen Keskusta rp"},
-{id: 7, member: 11, sum: 5000, puolue: "Suomen Keskusta rp"},
-{id:8, member:12, sum:10000, puolue: "Svenska folkpartiet i Finland rp"},
-{id:9, member:13, sum:10000, puolue: "Svenska folkpartiet i Finland rp"},
-{id:10, member:14, sum:4000, puolue: "Suomen Sosialidemokraattinen Puolue rp"},
-{id:11, member:15, sum:4000, puolue: "Suomen Sosialidemokraattinen Puolue rp"},
-{id:12, member:16, sum:4000, puolue: "Suomen Sosialidemokraattinen Puolue rp"},
-{id:13, member:19, sum:3500, puolue: "Vihreä liitto rp"},
-{id:14, member:20, sum:3500, puolue: "Vihreä liitto rp"},
+{id: 1, member: 5, sum: 4055.61, name: "Perussuomalaiset rp"},
+{id: 2, member: 6, sum: 10000, name: "Perussuomalaiset rp"},
+{id: 3, member: 7, sum: 10000, name: "Perussuomalaiset rp"},
+{id: 4, member: 8, sum: 5000, name: "Suomen Keskusta rp"},
+{id: 5, member: 9, sum: 5000, name: "Suomen Keskusta rp"},
+{id: 6, member: 10, sum: 5000, name: "Suomen Keskusta rp"},
+{id: 7, member: 11, sum: 5000, name: "Suomen Keskusta rp"},
+{id:8, member:12, sum:10000, name: "Svenska folkpartiet i Finland rp"},
+{id:9, member:13, sum:10000, name: "Svenska folkpartiet i Finland rp"},
+{id:10, member:14, sum:4000, name: "Suomen Sosialidemokraattinen Puolue rp"},
+{id:11, member:15, sum:4000, name: "Suomen Sosialidemokraattinen Puolue rp"},
+{id:12, member:16, sum:4000, name: "Suomen Sosialidemokraattinen Puolue rp"},
+{id:13, member:19, sum:3500, name: "Vihreä liitto rp"},
+{id:14, member:20, sum:3500, name: "Vihreä liitto rp"},
 ])
 
 var puolueyhdistystuki = TAFFY();
@@ -229,16 +230,16 @@ puolueyhdistystuki.insert([
 
 var puolueyhdistystukiyhdistykset = TAFFY();
 puolueyhdistystukiyhdistykset.insert([
-{id: 1, member: 1, sum: 5000, yhdistys: "Hämeen Kokoomus ry"},
-{id: 2, member: 4, sum: 5891.55, yhdistys: "Keski-Suomen Kokoomus ry"},
-{id: 3, member: 8, sum: 32649.85, yhdistys: "Keskustan Etelä-Pohjanmaan piiri ry"},
-{id:4, member:14, sum: 20495, yhdistys:"Jyväskylän Työväenyhdistys ry"},
-{id:5, member:14, sum: 1659,  yhdistys:"Äänekosken työväenyhdistys ry"},
-{id:6, member:15, sum:10000, yhdistys: "Kuusamon sosialidemokraattinen työväenyhdistys ry"},
-{id:7, member:15, sum:5000, yhdistys: "Oulun sosialidemokraattinen työväenyhdistys ry"},
-{id:8, member:17, sum:5000, yhdistys:"Varsinais-Suomen Vasemmistoliitto ry"},
-{id:9, member: 17, sum:3000, yhdistys: "Vänsterförbundets svenska landsstyrelse"},
-{id:20, member:20, sum:1237.50, yhdistys: "Pirkanmaan Vihreä Liitto ry"}
+{id: 1, member: 1, sum: 5000, name: "Hämeen Kokoomus ry"},
+{id: 2, member: 4, sum: 5891.55, name: "Keski-Suomen Kokoomus ry"},
+{id: 3, member: 8, sum: 32649.85, name: "Keskustan Etelä-Pohjanmaan piiri ry"},
+{id:4, member:14, sum: 20495, name:"Jyväskylän Työväenyhdistys ry"},
+{id:5, member:14, sum: 1659,  name:"Äänekosken työväenyhdistys ry"},
+{id:6, member:15, sum:10000, name: "Kuusamon sosialidemokraattinen työväenyhdistys ry"},
+{id:7, member:15, sum:5000, name: "Oulun sosialidemokraattinen työväenyhdistys ry"},
+{id:8, member:17, sum:5000, name:"Varsinais-Suomen Vasemmistoliitto ry"},
+{id:9, member: 17, sum:3000, name: "Vänsterförbundets svenska landsstyrelse"},
+{id:20, member:20, sum:1237.50, name: "Pirkanmaan Vihreä Liitto ry"}
 ]);
 
 
@@ -268,33 +269,33 @@ muutuki.insert([
 
 var muutukitahot = TAFFY();
 muutukitahot.insert([
-{id: 1, member:1, sum: 10000, taho: "Ammattiliitto Pro ry"},
-{id: 2, member:1, sum: 1800, taho: "Raideammattilaisten yhteisjärjestö JHL ry"},
-{id: 3, member: 9, sum: 1900, taho: "AKAVA RY"},
-{id:4, member:12, sum: 10000, taho: "Esbo svenska kulturförening r.f."},
-{id:5, member: 12, sum: 9840,taho: "Svenska Bildningsförbundet r.f."},
-{id:6, member:12, sum: 10000, taho: "Stiftelsen för det tvåspråkiga Finland"},
-{id:7, member:12, sum: 2540, taho: "Föreningen Konstsamfundet r.f."},
-{id:8, member:12,  sum: 1590, taho: "Stiftelsen för utbildning och kultur på svenska i Finland"},
-{id:9, member:14, sum: 3000, taho: "Valmetin metallityöväen ammattiosasto ry"},
-{id: 10, member:14, sum: 9500, taho: "Jyväskylän ammatillinen paikallisjärjestö ry"},
-{id: 11, member:14, sum: 2000, taho:"Ammattiliitto Pro ry"},
-{id: 12, member: 14, sum: 1500, taho: "Auto- ja Kuljetusalan Työntekijäliitto AKT ry"},
-{id:13, member:15, sum:3000, taho:"PAM"},
-{id:14, member:15, sum:1500, taho:"TEAM"},
-{id:15, member:16, sum: 1600, taho:"Energiateollisuus ry"},
-{id:16, member:16, sum: 600, taho: "Rakennusteollisuus RT ry"},
-{id:17, member:16, sum: 1500, taho: "TEAM"},
-{id:17, member:16, sum: 3000, taho: "Palkansaajien opintoyhdistys"},
-{id:18, member: 16, sum: 8000, taho: "Palvelualojen ammattiliitto PAM ry"},
-{id:19, member: 16, sum:10000, taho: "Metalliliiton sos.dem.opintoyhdistys"},
-{id:20, member: 16, sum: "1500", taho: "Suomen Turkiseläinten Kasvattajain Liitto ry"},
-{id:21, member:16, sum: 0, taho: "Ammattiliitto Pro ry"},
-{id:22, member: 16, sum:2000, taho: "Sähköliitto"},
-{id:23, member: 16, sum:800, taho:"Finanssialan Keskusliitto"},
-{id:24, member:17, sum: 3000, taho: "Vasemmistonuoret ry"},
-{id:25, member:18, sum: 1500, taho: "Ossi Ahokkaan säätiö"},
-{id:26, member:19, sum:2000, taho: "Osuuskunta Tradeka-yhtymä"},
+{id: 1, member:1, sum: 10000, name: "Ammattiliitto Pro ry"},
+{id: 2, member:1, sum: 1800, name: "Raideammattilaisten yhteisjärjestö JHL ry"},
+{id: 3, member: 9, sum: 1900, name: "AKAVA RY"},
+{id:4, member:12, sum: 10000, name: "Esbo svenska kulturförening r.f."},
+{id:5, member: 12, sum: 9840, name: "Svenska Bildningsförbundet r.f."},
+{id:6, member:12, sum: 10000, name: "Stiftelsen för det tvåspråkiga Finland"},
+{id:7, member:12, sum: 2540, name: "Föreningen Konstsamfundet r.f."},
+{id:8, member:12,  sum: 1590, name: "Stiftelsen för utbildning och kultur på svenska i Finland"},
+    {id:9, member:14, sum: 3000, name: "Valmetin metallityöväen ammattiosasto ry"},
+{id: 10, member:14, sum: 9500, name: "Jyväskylän ammatillinen paikallisjärjestö ry"},
+{id: 11, member:14, sum: 2000, name:"Ammattiliitto Pro ry"},
+{id: 12, member: 14, sum: 1500, name: "Auto- ja Kuljetusalan Työntekijäliitto AKT ry"},
+{id:13, member:15, sum:3000, name:"PAM"},
+{id:14, member:15, sum:1500, name:"TEAM"},
+{id:15, member:16, sum: 1600, name:"Energiateollisuus ry"},
+{id:16, member:16, sum: 600, name: "Rakennusteollisuus RT ry"},
+{id:17, member:16, sum: 1500, name: "TEAM"},
+{id:17, member:16, sum: 3000, name: "Palkansaajien opintoyhdistys"},
+{id:18, member: 16, sum: 8000, name: "Palvelualojen ammattiliitto PAM ry"},
+{id:19, member: 16, sum:10000, name: "Metalliliiton sos.dem.opintoyhdistys"},
+{id:20, member: 16, sum: "1500", name: "Suomen Turkiseläinten Kasvattajain Liitto ry"},
+{id:21, member:16, sum: 0, name: "Ammattiliitto Pro ry"},
+{id:22, member: 16, sum:2000, name: "Sähköliitto"},
+{id:23, member: 16, sum:800, name:"Finanssialan Keskusliitto"},
+{id:24, member:17, sum: 3000, name: "Vasemmistonuoret ry"},
+{id:25, member:18, sum: 1500, name: "Ossi Ahokkaan säätiö"},
+{id:26, member:19, sum:2000, name: "Osuuskunta Tradeka-yhtymä"},
 ]);
 //22- 16 Pro summma väärin, rek numero annettu
 
@@ -323,7 +324,8 @@ rahoitusyhteensa.insert([
 ])
 
 var parties = TAFFY();
-parties.insert([{id:1,abbreviation:"KOK",name:"Kansallinen Kokoomus"},
+parties.insert([
+{id:1,abbreviation:"KOK",name:"Kansallinen Kokoomus"},
 {id:2,abbreviation:"SDP",name:"Suomen Sosialidemokraattinen Puolue"},
 {id:3,abbreviation:"VIHR",name:"Vihreä liitto"},
 {id:4,abbreviation:"VAS",name:"Vasemmistoliitto"},
@@ -371,3 +373,4 @@ MEPpages.insert([
 ]);
 
 
+// mellanperson

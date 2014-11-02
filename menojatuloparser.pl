@@ -112,24 +112,6 @@ print $out . "\n";
 }
 
 =pod
-use HTML::TokeParser;
-
-my $file = "Vaali ja puoluerahoitusvalvonta -.html";
-
-#my $data = open(FILE, $file) or die "Cannot open file";
-
-my $stream = HTML::TokeParser->new($file);
-
-my $ntrue = 0;
-while(my $token = $stream->get_token){
- if($token->[0] eq "S" && $token->[1] eq 'td'){ # && $token->[3]->[0] eq 'class'){
-   $ntrue = 1;
- }
- if($token->[0] eq "T" && $ntrue == 1){# && $token->[1] =~ /\d+/){
-  print $token->[1];
-  $ntrue = 0;
- }
-}
 =cut
 
 

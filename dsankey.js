@@ -7,7 +7,8 @@ var formatNumber = d3.format(",.0f"),
     format = function(d) { return formatNumber(d) + " euroa"; },
     color = d3.scale.category20();
 
-var svg = d3.select("#chart").append("svg")
+var svg = d3.select("#chart")
+    .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -32,7 +33,8 @@ d3.json(s, function(energy) {
 //d3.json("energy.json", function(energy) {
 	$("#chart").empty();
 	//alert(s)
-	var svg = d3.select("#chart").append("svg")
+	var svg = d3.select("#chart")
+     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -69,10 +71,13 @@ d3.json(s, function(energy) {
   node.append("rect")
       .attr("height", function(d) { return d.dy; })
       .attr("width", sankey.nodeWidth())
+      .style("fill", "#ff0302")
 //      .style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
       .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
     .append("title")
       .text(function(d) { return d.name + "\n" + format(d.value); });
+
+//console.log(rect.name); // find variable d
 
   node.append("text")
       .attr("x", -6)
@@ -90,5 +95,29 @@ d3.json(s, function(energy) {
     sankey.relayout();
     link.attr("d", path);
   }
+  
+  /*
+  // open up a new window
+        function newWindow(){
+          var w = window.open('','','width=600, height=600');
+          var html = $('#toNewWindow').html(svg);
+          $(w.document.body).html(html);
+        
+        }
+
+        $(function() {
+          $('rect').click(newWindow);
+        });
+        */
+
+
+
+
+
+
+
+
+
+  
 });
 }
