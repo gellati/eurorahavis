@@ -47,7 +47,7 @@ print @{$names}[$i] . "\n"; # . " " . $links[$i] . "\n";
 print $baseurl . @{$links}[$i] . "\n";
 
 get_funding_data($baseurl . @{$links}[$i]);
-print "\n";
+print "\n\n";
 }
 
 

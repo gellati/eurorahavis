@@ -1,106 +1,221 @@
-        /*body{padding:10px;overflow:hidden;background:#dcdcdc} */
-        .dataregion {
-            width: 1800px;
-            height: 800px;
-        }
-        #paper {
-            width: 800px;
-            height: 800px;
-            margin: 20px;
-            border: 1px solid;
-            background: #fff;
-            float: left;
-        }
-        #_searchmenu{
-        	width: 200px;
-        	height: 50px;
-/*        	float:right;*/
-        	}
-
-
-        .details {
-            width: 300px;
-            height: 500px;
-        }
-
-#help_parent{position: absolute; right: 500px;top:2px;}
-#helpHolder{position: absolute; right: 500px;top:2px;}
-
-       #personalsponsors{color: #333;text-decoration: none;width: 100px; height:50px}
-       #corporatesponsors{color: #333;text-decoration: none;}
-       #partysponsors{color: #333;text-decoration:none;}
-       #partyorgsponsors{color: #333;text-decoration: none;}
-
-
-        footer{
-        float: left;
-        }
-        #chart {
-            height: 800px;
-            width: 800px;
-            float: left;
-            margin: 50px;
-        }
-        #chart ._node rect {
-            cursor: move;
-            fill-opacity: .9;
-            shape-rendering: crispEdges;
-        }
-        ._node text {
-            pointer-events: none;
-            text-shadow: 0 1px 0 #fff;
-        }
-        .link {
-            fill: none;
-            stroke: #000;
-            stroke-opacity: .2;
-        }
-        .link:hover {
-            stroke-opacity: .5;
-        }
-
-/* highlight results */
-.ui-autocomplete span.hl_results {
-    background-color: #ffff66;
-}
- 
-/* loading - the AJAX indicator */
-_.ui-autocomplete-loading {
-    background: white url('../img/ui-anim_basic_16x16.gif') right center no-repeat;
-}
- 
-/* scroll results */
-.ui-autocomplete {
-    max-height: 250px;
-    overflow-y: auto;
-    /* prevent horizontal scrollbar */
-    overflow-x: hidden;
-    /* add padding for vertical scrollbar */
-    padding-right: 5px;
-}
- 
- /* color of autocomplete list */
-.ui-autocomplete li {
-    font-size: 16px;
-    list-style: none;
-    background-color: black;
-    color: white;
-    width: 180px;
-    position: relative;
-    left: -38px;
+body{
+font: 14px helvetica neue, helvetica, arial, sans-serif;
+background-color: white;
 }
 
-/* color when selecting from autocomplete field */
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus
+#cy{
+height: 100%;
+width: 100%;
+  position: absolute;
+  left: 0%;
+  margin-left: 50px;
+  top: 70%;
+}
+
+#legend{
+position:absolute;
+margin: 10px;
+left: 30px;
+top: 70%;
+}
+
+#explanation{
+position: absolute;
+font-size: small;
+display: block;
+width: 250px;
+margin: 20px;
+}
+
+
+#legend p{
+padding-left: 25px;
+}
+
+#legend h3{
+font-weight: bold;
+}
+
+#legend .kok,
+#legend .ps,
+#legend .kesk,
+#legend .sdp,
+#legend .rkp,
+#legend .vas,
+#legend .vihr
 {
-    color: green;
-    background: yellow;
- }
-
- 
-/* IE 6 doesn't support max-height
-* we use height instead, but this forces the menu to always be this tall
-*/
-* html .ui-autocomplete {
-    height: 250px;
+position: absolute;
+left: -5px;
+width: 20px; 
+height: 20px;
+-moz-border-radius: 50px; 
+-webkit-border-radius: 50px; 
+border-radius: 40px;
+/*border: solid 10px green;*/
+/*fill-opacity: .5;*/
 }
+
+#legend .kok{
+background: #0000FF;
+}
+
+#legend .ps{
+background: #663300;
+}
+
+#legend .kesk{
+background: #006600;
+}
+
+#legend .sdp{
+background: #FF0000;
+}
+
+#legend .rkp{
+background: #0099FF;
+}
+
+#legend .vas{
+background: #CC0000;
+}
+
+#legend .vihr{
+background: #00CC00;
+}
+
+#legend .yhteinen{
+background: #000000;
+position: absolute;
+top: 64%;
+  left: -5px;
+
+  top-margin: 3px;
+width: 20px; 
+height: 5px;
+-moz-border-radius: 50px; 
+-webkit-border-radius: 50px; 
+border-radius: 50px;
+}
+
+#fundingsize{
+  padding-left: 25px;
+  
+}
+
+
+#fundingsize .ten,
+#fundingsize .fifty,
+#fundingsize .hundred{
+  background: #000000;
+  position: absolute;
+  left: -5px;
+  top-margin: 3px;
+  -moz-border-radius: 50px; 
+  -webkit-border-radius: 50px; 
+  border-radius: 40px;
+}
+
+#fundingsize .ten{
+  width: 8px;
+  height: 8px;
+  left: 3%;
+}
+
+#fundingsize .fifty{
+  width:12px; 
+  height: 12px;
+  left: 2.5%;
+}
+
+#fundingsize .hundred{
+  width: 23px; 
+  height: 23px;
+  left: 0%;
+}
+
+
+.qtip{
+max-width: 700px;
+}
+
+.qtip-tip{
+background-color: #000;
+}
+
+.tooltipcontent .leftcolumn{
+height: 350px;
+width: 60px;
+float: left;
+}
+
+._tooltipcontent .centercolumn{
+height: 140px;
+margin-left: 70px;
+margin-right: 300px;
+width: 300px;
+display: block;
+}
+
+.tooltipcontent .rightcolumn{
+height: 350px;
+margin-left: 60px;
+width: 300px;
+display: block;
+float: right;
+}
+
+
+.tooltipcontent .chart{
+height: 140px;
+margin-left: 70px;
+width: 300px;
+display: block;
+float: right;
+}
+
+
+/*#_sPietikainen,*/
+#Pietikainen_funding,
+#Sarvamaa_funding,
+#Stubb_funding,
+#Virkkunen_funding,
+#Halla-Aho_funding,
+#Ruohonen-Lerner_funding,
+#Terho_funding,
+#Jaatteenmaki_funding,
+#Rehn_funding,
+#Takkula_funding,
+#Vayrynen_funding,
+#Gestrin_funding,
+#Torvalds_funding,
+#Harakka_funding,
+#Jaakonsaari_funding,
+#Kumpula-Natri_funding,
+#Andersson_funding,
+#Kyllonen_funding,
+#Hautala_funding,
+#Tynkkynen_funding
+{
+/*position: absolute;*/
+/*  left: 70%;*/
+/*  top: 80%;*/
+  width: 480px;
+}
+
+#info{
+  position: absolute;
+  top: 175%;
+  left: 15px;
+  margin: 20px;
+  font-size: 20pt;
+}
+
+#explanation-text{
+  font-size: 12pt;
+  background-color: white;
+  display: block;
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 10px;
+}
+
