@@ -4,3 +4,5 @@ Rahoituksen visualisointi eurovaaleissa 2014
 =================
 
 Visualisointi siitä miten valitut europarlamentaarikot ja varasijoille tulleet saivat rahoitusta vuoden 2014 vaaleissa ja miten rahoja käytettiin.
+
+Visualisointi [tässä] (http://gellati.github.io/eurorahavis/)
