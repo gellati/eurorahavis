@@ -1,0 +1,27 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Yrityksiltä saatu tuki"},
+{"name":"Muilta tahoilta saatu tuki"},
+{"name":"Petri Sarvamaa"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Tietoverkot"},
+{"name":"Ulkomainonta"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Mainonnan suunnittelu"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Muut kulut"}
+],
+"links":[
+{"source":0,"target":4,"value":12680.49},
+{"source":1,"target":4,"value":17007.00},
+{"source":2,"target":4,"value":10320.00},
+{"source":3,"target":4,"value":6210.00},
+{"source":4,"target":5,"value":6991.38},
+{"source":4,"target":6,"value":4880.00},
+{"source":4,"target":7,"value":6156.12},
+{"source":4,"target":8,"value":1500.00},
+{"source":4,"target":9,"value":14000},
+{"source":4,"target":10,"value":1389.99},
+{"source":4,"target":11,"value":11300.00}
+]}

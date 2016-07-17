@@ -1,0 +1,25 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Muilta tahoilta saatu tuki"},
+{"name":"Nils Torvalds"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Tietoverkot"},
+{"name":"Ulkomainonta"},
+{"name":"Mainonnan suunnittelu"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Muut kulut"}
+],
+"links":[
+{"source":0,"target":4,"value":8500.00},
+{"source":1,"target":4,"value":13067.00},
+{"source":2,"target":4,"value":10000},
+{"source":3,"target":4,"value":18000},
+{"source":4,"target":5,"value":20378.00},
+{"source":4,"target":6,"value":1087.00},
+{"source":4,"target":7,"value":10272.00},
+{"source":4,"target":8,"value":7222.00},
+{"source":4,"target":9,"value":2546},
+{"source":4,"target":10,"value":8062.00}
+]}

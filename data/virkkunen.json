@@ -1,0 +1,29 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Yrityksiltä saatu tuki"},
+{"name":"Puolueyhdistykseltä saatu tuki"},
+{"name":"Henna Virkkunen"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Televisio"},
+{"name":"Tietoverkot"},
+{"name":"Ulkomainonta"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Mainonnan suunnittelu"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Muut kulut"}
+],
+"links":[
+{"source":0,"target":4,"value":45417.27},
+{"source":1,"target":4,"value":17399.00},
+{"source":2,"target":4,"value":23150.00},
+{"source":3,"target":4,"value":5891.55},
+{"source":4,"target":5,"value":23992.20},
+{"source":4,"target":6,"value":20843.53},
+{"source":4,"target":7,"value":5090.00},
+{"source":4,"target":8,"value":14601.26},
+{"source":4,"target":9,"value":4507.37},
+{"source":4,"target":10,"value":8218.44},
+{"source":4,"target":11,"value":9882.22},
+{"source":4,"target":12,"value":4722.80}
+]}

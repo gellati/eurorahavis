@@ -1,0 +1,27 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Puolueyhdistyksiltä saatu tuki"},
+{"name":"Muilta tahoilta saatu tuki"},
+{"name":"Li Andersson"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Tietoverkot"},
+{"name":"Ulkomainonta"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Muut kulut"}
+],
+"links":[
+{"source":0,"target":5,"value":2000.00},
+{"source":1,"target":5,"value":17669.88},
+{"source":2,"target":5,"value":1000.00},
+{"source":3,"target":5,"value":8000.00},
+{"source":4,"target":5,"value":7000.00},
+{"source":5,"target":6,"value":6795.14},
+{"source":5,"target":7,"value":4710.19},
+{"source":5,"target":8,"value":13339.18},
+{"source":5,"target":9,"value":6045.37},
+{"source":5,"target":10,"value":3280.00},
+{"source":5,"target":11,"value":1500.00}
+]}

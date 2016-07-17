@@ -1,0 +1,23 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Puolueyhdistykseltä saatu tuki"},
+{"name":"Muilta tahoilta saatu tuki"},
+{"name":"Paavo Väyrynen"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Televisio"},
+{"name":"Tietoverkot"},
+{"name":"Ulkomainonta"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Muut kulut"}
+],
+"links":[
+{"source":0,"target":3,"value":29111.00},
+{"source":1,"target":3,"value":5000},
+{"source":2,"target":3,"value":58542.00},
+{"source":3,"target":4,"value":71699.00},
+{"source":3,"target":5,"value":14534.00},
+{"source":3,"target":6,"value":2900},
+{"source":3,"target":7,"value":1310.00},
+{"source":3,"target":8,"value":2125.00},
+{"source":3,"target":9,"value":85}
+]}

@@ -1,0 +1,33 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Yrityksiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Puolueyhdistykseltä saatu tuki"},
+{"name":"Muilta saatu tuki"},
+{"name":"Timo Harakka"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Tietoverkot"},
+{"name":"Ulkomainonta"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Mainonnan suunnittelu"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Vastikkeellisen tuen hankintakulut"},
+{"name":"Muut kulut"}
+],
+"links":[
+{"source":0,"target":6,"value":11128.56},
+{"source":1,"target":6,"value":4165.85},
+{"source":2,"target":6,"value":740.00},
+{"source":3,"target":6,"value":4000.00},
+{"source":4,"target":6,"value":24144.00},
+{"source":5,"target":6,"value":28305.90},
+{"source":6,"target":7,"value":30885.45},
+{"source":6,"target":8,"value":1157.50},
+{"source":6,"target":9,"value":10915.00},
+{"source":6,"target":10,"value":14214.37},
+{"source":6,"target":11,"value":2480.00},
+{"source":6,"target":12,"value":8047.52},
+{"source":6,"target":13,"value":322.10},
+{"source":6,"target":14,"value":4462.37}
+]}

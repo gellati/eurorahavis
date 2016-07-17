@@ -1,0 +1,33 @@
+{"nodes":[
+{"name":"Omia varoja"},
+{"name":"Yksityishenkilöiltä saatu tuki"},
+{"name":"Yrityksiltä saatu tuki"},
+{"name":"Puolueelta saatu tuki"},
+{"name":"Puolueyhdistykseltä saatu tuki"},
+{"name":"Muilta saatu tuki"},
+{"name":"Christina Gestrin"},
+{"name":"Sanoma- ilmaisjakelu- ja aikakauslehdet"},
+{"name":"Tietoverkot"},
+{"name":"Ulkomainonta"},
+{"name":"Vaalilehtien esitteiden ja muun painetun materiaalin hankinta"},
+{"name":"Mainonnan suunnittelu"},
+{"name":"Vaalitilaisuudet"},
+{"name":"Vastikkeellisen tuen hankintakulut"},
+{"name":"Muut kulut"}
+],
+"links":[
+{"source":0,"target":6,"value":9316.00},
+{"source":1,"target":6,"value":16899.00},
+{"source":2,"target":6,"value":9130.00},
+{"source":3,"target":6,"value":10000},
+{"source":4,"target":6,"value":800},
+{"source":5,"target":6,"value":39230},
+{"source":6,"target":7,"value":17821.00},
+{"source":6,"target":8,"value":1080.00},
+{"source":6,"target":9,"value":28995},
+{"source":6,"target":10,"value":17983.00},
+{"source":6,"target":11,"value":3514.00},
+{"source":6,"target":12,"value":5499.00},
+{"source":6,"target":13,"value":448.00},
+{"source":6,"target":14,"value":10035.00}
+]}

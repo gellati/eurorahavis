@@ -1,0 +1,111 @@
+<html>
+  <head>
+
+  <meta charset="UTF-8" name="description" content="[moneyflow]">
+
+  <title>EU-vaaliehdokkaiden rahoitus</title>
+
+  <script type="text/javascript" src="jquery-2.1.1.js" charset="utf-8" ></script>
+
+  <script type="text/javascript" src="cytoscape/cytoscape.min.js"></script>
+
+  <script type="text/javascript" src="jquery.qtip-2.2.1.js"></script>
+  <link rel="stylesheet" type="text/css" href="jquery.qtip.css" />
+
+  <script type="text/javascript" src="jquery-ui-1.11.1/jquery-ui.js"></script>
+
+  <script type="text/javascript" src="cytoscape/cytoscape.js-panzoom-master/cytoscape.js-panzoom.js"></script>
+
+  <script type="text/javascript" src="cytoscape/cytoscape-qtip.js"></script>
+
+<script language="javascript" type="text/javascript" src="dist/jquery.jqplot.min.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="dist/jquery.jqplot.min.css" />
+
+<script type="text/javascript" src="dist/plugins/jqplot.barRenderer.min.js"></script>
+<script type="text/javascript" src="dist/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" src="dist/plugins/jqplot.pointLabels.min.js"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="cytoscape/cytoscape.js-panzoom-master/cytoscape.js-panzoom.css">
+  <link rel="stylesheet" type="text/css" href="cytoscape/cytoscape.js-panzoom-master/font-awesome-4.0.3/css/font-awesome.min.css">
+
+  <link rel="stylesheet" type="text/css" href="euro.css">
+
+
+<!-- http://stackoverflow.com/questions/8449716/cross-origin-requests-are-only-supported-for-http-but-its-not-cross-domain/14490982#14490982 -->
+
+
+  <script type="text/javascript" >
+
+</script>
+
+</head>
+
+<body>
+
+<div id="cy"></div>
+
+<div id="legend">
+<div id="parties">
+
+<h3>Puolueet</h3>
+<div class="kok"></div><p>Kokoomus</p>
+<div class="kesk"></div><p>Keskusta</p>
+<div class="vihr"></div><p>Vihreä liitto</p>
+<div class="sdp"></div><p>Sosialidemokraattinen puolue</p>
+<div class="vas"></div><p>Vasemmistoliitto</p>
+<div class="ps"></div><p>Perussuomalaiset</p>
+<div class="rkp"></div><p>Ruotsalainen kansanpuolue</p>
+<div class="yhteinen"></div><p>Yhteinen rahoittaja</p>
+</div>
+<div id="fundingsize">
+<h3>Rahoituksen määrä</h3>
+<div class="ten"></div><p>10 000 euroa</p>
+<div class="fifty"></div><p>50 000 euroa</p>
+<div class="hundred"></div><p>100 000 euroa</p>
+</div>
+
+</div>
+
+<button id="info">i</button>
+
+<script>
+$("#info").button();
+$("#info").click(function(){
+  $("#explanation").dialog({width: 400, height: 300});
+});
+</script>
+
+<div id="explanation" style="display: none;">
+
+<div autofocus>
+
+<div id="explanation-text">
+
+<h3>Show me the monEU </h3>
+<p>Kukin ympyrä edustaa yhtä 2014 eurovaaleissa ehdolla ollutta henkilöä joka valittu joko EU-parlamenttiin tai varasijalle.</p>
+
+<p>Ympyröiden halkaisija kuvastaa kuinka paljon rahaa henkilö käytti eurovaalien aikana.</p>
+
+<p>Ympyröitä voi hiiren avulla siirtää toistensa viereen ja tällä tavalla vertailla paljonko rahaa ehdokkaat käyttivät suhteessa toisiinsa.</p>
+
+<p>Kaaret ympyröiden välillä edustavat yhteisiä rahoittajia.</p>
+
+<p>Kun ympyrää klikkaa hiirikursorilla, avautuu kuva jossa näkee mistä lähteistä edustaja sai rahaa ja paljonko.</p>
+
+<p>Visualisointi ei toimi Firefoxin vanhoissa versioissa.</p>
+
+<!--<p>mihin tarkoituksiin rahaa käytettiin.</p>-->
+</div>
+
+</div>
+
+</div>
+
+<script language="javascript" type="text/javascript" src="script.js"></script>
+
+</body>
+
+</html>
